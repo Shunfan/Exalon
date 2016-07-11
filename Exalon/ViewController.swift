@@ -37,7 +37,11 @@ class ViewController: UIViewController {
         
         // Sets the center of the pieChart Text
 //        pieChartView.centerText = "Test"
+        // Removes discriptive text from individual slices
         pieChartView.drawSliceTextEnabled = false
+        // Removes the center cut out of the graph
+        pieChartView.drawHoleEnabled = false
+        
         
         var colors: [UIColor] = []
         
