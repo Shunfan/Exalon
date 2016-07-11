@@ -30,10 +30,9 @@ class ViewController: UIViewController {
             dataEntries.append(dataEntry)
         }
         
-        let test = ["", "", ""]
         
         let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "Total Spent")
-        let pieChartData = PieChartData(xVals: test, dataSet: pieChartDataSet)
+        let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
         pieChartView.data = pieChartData
         
         var colors: [UIColor] = []
