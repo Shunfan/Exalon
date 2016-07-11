@@ -35,6 +35,10 @@ class ViewController: UIViewController {
         let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
         pieChartView.data = pieChartData
         
+        // Sets the center of the pieChart Text
+//        pieChartView.centerText = "Test"
+        pieChartView.drawSliceTextEnabled = false
+        
         var colors: [UIColor] = []
         
         for _ in 0..<dataPoints.count {
