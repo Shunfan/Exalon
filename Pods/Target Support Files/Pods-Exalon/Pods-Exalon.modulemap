@@ -1,0 +1,6 @@
+framework module Pods_Exalon {
+  umbrella header "Pods-Exalon-umbrella.h"
+
+  export *
+  module * { export * }
+}

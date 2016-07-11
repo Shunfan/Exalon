@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Exalon" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrG-9I-CBt">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <navigationItem title="Exalon" id="XLc-Uf-uHi">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="cPd-uJ-z8Z"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mqb-oP-RK2">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="hkZ-TQ-ZyO">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hkZ-TQ-ZyO" id="NxI-Ko-uSm">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dqc-Ya-JyK">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem title="Overview" id="Sch-jc-L8i"/>
+                                    <tabBarItem title="Categories" id="VXE-vq-LbF"/>
+                                    <tabBarItem title="Budget Plan" id="Inv-MA-IJb"/>
+                                    <tabBarItem title="Settings" id="p68-mQ-yDr"/>
+                                </items>
+                            </tabBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CGU-OK-4Jh" customClass="PieChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="178" id="vFg-aL-50a">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="300"/>
+                                    </constraint>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="vFg-aL-50a"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="vFg-aL-50a"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Dqc-Ya-JyK" secondAttribute="bottom" id="1ES-m1-v0t"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Dqc-Ya-JyK" secondAttribute="trailing" constant="-20" id="66J-gy-FMb"/>
+                            <constraint firstItem="BrG-9I-CBt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="6nY-po-vbS"/>
+                            <constraint firstItem="CGU-OK-4Jh" firstAttribute="top" secondItem="BrG-9I-CBt" secondAttribute="bottom" id="8Vp-j0-S1X"/>
+                            <constraint firstItem="mqb-oP-RK2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="Bgd-jU-2Yf"/>
+                            <constraint firstItem="BrG-9I-CBt" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="DVS-6D-ibf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CGU-OK-4Jh" secondAttribute="trailing" constant="-20" id="JhD-mX-88F"/>
+                            <constraint firstItem="Dqc-Ya-JyK" firstAttribute="top" secondItem="mqb-oP-RK2" secondAttribute="bottom" id="ciQ-Cw-7ez"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mqb-oP-RK2" secondAttribute="trailing" constant="-20" id="dwD-aK-Clm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BrG-9I-CBt" secondAttribute="trailing" constant="-20" id="h0N-N8-ZvP"/>
+                            <constraint firstItem="mqb-oP-RK2" firstAttribute="top" secondItem="CGU-OK-4Jh" secondAttribute="bottom" constant="8" id="qir-hu-APN"/>
+                            <constraint firstItem="Dqc-Ya-JyK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="vkN-bP-Z6V"/>
+                            <constraint firstItem="CGU-OK-4Jh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="xXh-2Z-ise"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="BrG-9I-CBt"/>
+                                <exclude reference="mqb-oP-RK2"/>
+                                <exclude reference="Dqc-Ya-JyK"/>
+                                <exclude reference="CGU-OK-4Jh"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="6nY-po-vbS"/>
+                                <exclude reference="DVS-6D-ibf"/>
+                                <exclude reference="h0N-N8-ZvP"/>
+                                <exclude reference="8Vp-j0-S1X"/>
+                                <exclude reference="JhD-mX-88F"/>
+                                <exclude reference="xXh-2Z-ise"/>
+                                <exclude reference="Bgd-jU-2Yf"/>
+                                <exclude reference="dwD-aK-Clm"/>
+                                <exclude reference="qir-hu-APN"/>
+                                <exclude reference="66J-gy-FMb"/>
+                                <exclude reference="ciQ-Cw-7ez"/>
+                                <exclude reference="vkN-bP-Z6V"/>
+                                <exclude reference="1ES-m1-v0t"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="BrG-9I-CBt"/>
+                                <include reference="mqb-oP-RK2"/>
+                                <include reference="Dqc-Ya-JyK"/>
+                                <include reference="CGU-OK-4Jh"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="6nY-po-vbS"/>
+                                <include reference="DVS-6D-ibf"/>
+                                <include reference="h0N-N8-ZvP"/>
+                                <include reference="8Vp-j0-S1X"/>
+                                <include reference="JhD-mX-88F"/>
+                                <include reference="xXh-2Z-ise"/>
+                                <include reference="Bgd-jU-2Yf"/>
+                                <include reference="dwD-aK-Clm"/>
+                                <include reference="qir-hu-APN"/>
+                                <include reference="66J-gy-FMb"/>
+                                <include reference="ciQ-Cw-7ez"/>
+                                <include reference="vkN-bP-Z6V"/>
+                                <include reference="1ES-m1-v0t"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <connections>
+                        <outlet property="pieChartView" destination="CGU-OK-4Jh" id="Eer-lx-8rK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="324" y="399"/>
+        </scene>
+    </scenes>
+</document>
