@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		37453E551D3318D600FD9D07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37453E541D3318D600FD9D07 /* AppDelegate.swift */; };
-		37453E571D3318D600FD9D07 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37453E561D3318D600FD9D07 /* ViewController.swift */; };
+		37453E571D3318D600FD9D07 /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37453E561D3318D600FD9D07 /* OverviewViewController.swift */; };
 		37453E5A1D3318D600FD9D07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37453E581D3318D600FD9D07 /* Main.storyboard */; };
 		37453E5D1D3318D600FD9D07 /* Exalon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37453E5B1D3318D600FD9D07 /* Exalon.xcdatamodeld */; };
 		37453E5F1D3318D600FD9D07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37453E5E1D3318D600FD9D07 /* Assets.xcassets */; };
@@ -20,7 +20,7 @@
 		23EC279E85EE6D3117199307 /* Pods-Exalon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Exalon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Exalon/Pods-Exalon.debug.xcconfig"; sourceTree = "<group>"; };
 		37453E511D3318D500FD9D07 /* Exalon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exalon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37453E541D3318D600FD9D07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		37453E561D3318D600FD9D07 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		37453E561D3318D600FD9D07 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		37453E591D3318D600FD9D07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		37453E5C1D3318D600FD9D07 /* Exalon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Exalon.xcdatamodel; sourceTree = "<group>"; };
 		37453E5E1D3318D600FD9D07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -72,7 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				37453E541D3318D600FD9D07 /* AppDelegate.swift */,
-				37453E561D3318D600FD9D07 /* ViewController.swift */,
+				37453E561D3318D600FD9D07 /* OverviewViewController.swift */,
 				37453E581D3318D600FD9D07 /* Main.storyboard */,
 				37453E5E1D3318D600FD9D07 /* Assets.xcassets */,
 				37453E601D3318D600FD9D07 /* LaunchScreen.storyboard */,
@@ -214,7 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37453E5D1D3318D600FD9D07 /* Exalon.xcdatamodeld in Sources */,
-				37453E571D3318D600FD9D07 /* ViewController.swift in Sources */,
+				37453E571D3318D600FD9D07 /* OverviewViewController.swift in Sources */,
 				37453E551D3318D600FD9D07 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

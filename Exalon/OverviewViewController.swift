@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  OverviewViewController.swift
 //  Exalon
 //
 //  Created by Shunfan Du on 7/10/16.
@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-class ViewController: UIViewController {
+class OverviewViewController: UIViewController {
     @IBOutlet weak var pieChartView: PieChartView!
 
     override func viewDidLoad() {
