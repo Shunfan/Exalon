@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="L0f-ZR-2bU">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -7,7 +7,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Overview-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Exalon" customModuleProvider="target" sceneMemberID="viewController">
@@ -32,7 +32,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="hkZ-TQ-ZyO">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OverviewCell" id="hkZ-TQ-ZyO">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hkZ-TQ-ZyO" id="NxI-Ko-uSm">
@@ -42,16 +42,6 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dqc-Ya-JyK">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <items>
-                                    <tabBarItem title="Overview" id="Sch-jc-L8i"/>
-                                    <tabBarItem title="Categories" id="VXE-vq-LbF"/>
-                                    <tabBarItem title="Budget Plan" id="Inv-MA-IJb"/>
-                                    <tabBarItem title="Settings" id="p68-mQ-yDr"/>
-                                </items>
-                            </tabBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CGU-OK-4Jh" customClass="PieChartView" customModule="Charts">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -74,25 +64,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Dqc-Ya-JyK" secondAttribute="bottom" id="1ES-m1-v0t"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Dqc-Ya-JyK" secondAttribute="trailing" constant="-20" id="66J-gy-FMb"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="mqb-oP-RK2" secondAttribute="bottom" id="1sP-Vd-Bzg"/>
                             <constraint firstItem="BrG-9I-CBt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="6nY-po-vbS"/>
                             <constraint firstItem="CGU-OK-4Jh" firstAttribute="top" secondItem="BrG-9I-CBt" secondAttribute="bottom" id="8Vp-j0-S1X"/>
                             <constraint firstItem="mqb-oP-RK2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="Bgd-jU-2Yf"/>
                             <constraint firstItem="BrG-9I-CBt" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="DVS-6D-ibf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CGU-OK-4Jh" secondAttribute="trailing" constant="-20" id="JhD-mX-88F"/>
-                            <constraint firstItem="Dqc-Ya-JyK" firstAttribute="top" secondItem="mqb-oP-RK2" secondAttribute="bottom" id="ciQ-Cw-7ez"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mqb-oP-RK2" secondAttribute="trailing" constant="-20" id="dwD-aK-Clm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="BrG-9I-CBt" secondAttribute="trailing" constant="-20" id="h0N-N8-ZvP"/>
                             <constraint firstItem="mqb-oP-RK2" firstAttribute="top" secondItem="CGU-OK-4Jh" secondAttribute="bottom" constant="8" id="qir-hu-APN"/>
-                            <constraint firstItem="Dqc-Ya-JyK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="vkN-bP-Z6V"/>
                             <constraint firstItem="CGU-OK-4Jh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="xXh-2Z-ise"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="BrG-9I-CBt"/>
                                 <exclude reference="mqb-oP-RK2"/>
-                                <exclude reference="Dqc-Ya-JyK"/>
                                 <exclude reference="CGU-OK-4Jh"/>
                             </mask>
                             <mask key="constraints">
@@ -105,17 +91,13 @@
                                 <exclude reference="Bgd-jU-2Yf"/>
                                 <exclude reference="dwD-aK-Clm"/>
                                 <exclude reference="qir-hu-APN"/>
-                                <exclude reference="66J-gy-FMb"/>
-                                <exclude reference="ciQ-Cw-7ez"/>
-                                <exclude reference="vkN-bP-Z6V"/>
-                                <exclude reference="1ES-m1-v0t"/>
+                                <exclude reference="1sP-Vd-Bzg"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="BrG-9I-CBt"/>
                                 <include reference="mqb-oP-RK2"/>
-                                <include reference="Dqc-Ya-JyK"/>
                                 <include reference="CGU-OK-4Jh"/>
                             </mask>
                             <mask key="constraints">
@@ -128,21 +110,93 @@
                                 <include reference="Bgd-jU-2Yf"/>
                                 <include reference="dwD-aK-Clm"/>
                                 <include reference="qir-hu-APN"/>
-                                <include reference="66J-gy-FMb"/>
-                                <include reference="ciQ-Cw-7ez"/>
-                                <include reference="vkN-bP-Z6V"/>
-                                <include reference="1ES-m1-v0t"/>
+                                <include reference="1sP-Vd-Bzg"/>
                             </mask>
                         </variation>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <tabBarItem key="tabBarItem" title="Overview" id="dmf-aA-LC3"/>
                     <connections>
                         <outlet property="pieChartView" destination="CGU-OK-4Jh" id="Eer-lx-8rK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="324" y="399"/>
+            <point key="canvasLocation" x="-2904" y="1139.25"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="nRi-uj-f1J">
+            <objects>
+                <tabBarController id="L0f-ZR-2bU" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="7lJ-Mn-WOW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="sxs-SB-q8o"/>
+                        <segue destination="a2n-r4-erK" kind="relationship" relationship="viewControllers" id="Fnp-9f-Woj"/>
+                        <segue destination="SI6-v9-hPJ" kind="relationship" relationship="viewControllers" id="xvK-qX-EGI"/>
+                        <segue destination="qH9-fo-kb7" kind="relationship" relationship="viewControllers" id="fVF-8S-uST"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BAZ-f1-hlH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1747.5" y="371.25"/>
+        </scene>
+        <!--Categories-->
+        <scene sceneID="yzc-eD-LMB">
+            <objects>
+                <viewController id="a2n-r4-erK" userLabel="Categories" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jRx-EZ-LgU"/>
+                        <viewControllerLayoutGuide type="bottom" id="bNS-Rd-s9H"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EDK-vf-hcs">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Categories" id="QXd-55-9qg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DVs-wB-HWq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2113.5" y="1139.25"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="Z9l-cX-2Wh">
+            <objects>
+                <viewController id="SI6-v9-hPJ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fTo-Go-U2Y"/>
+                        <viewControllerLayoutGuide type="bottom" id="SKc-JS-iLw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Iha-nq-eTY">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" id="Hua-tE-dEZ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q2F-ZT-huq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-556.5" y="1139.25"/>
+        </scene>
+        <!--Budget Plan-->
+        <scene sceneID="LYw-9q-9aK">
+            <objects>
+                <viewController id="qH9-fo-kb7" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="g79-0v-YSj"/>
+                        <viewControllerLayoutGuide type="bottom" id="joh-fJ-trF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dI0-KX-KdG">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Budget Plan" id="Kc7-vj-b6Q"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7qh-BD-6Rd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1332" y="1139.25"/>
         </scene>
     </scenes>
 </document>
