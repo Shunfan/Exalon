@@ -9,16 +9,33 @@
 import UIKit
 import Charts
 
-class OverviewViewController: UIViewController {
+class OverviewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    let overviewCellIdentifier = "OverviewCell"
+    
+    // Example data for demo use
+    let categories = ["Entertainment", "Gorceries", "Books"]
+    let totalSpent = [59.99, 20.00, 100.00]
+    
     @IBOutlet weak var pieChartView: PieChartView!
+    @IBOutlet weak var transactionTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let categories = ["Entertainment", "Gorceries", "Books"]
-        let totalSpent = [59.99, 20.00, 100.00]
-        
         setPieChart(categories, values: totalSpent)
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(overviewCellIdentifier, forIndexPath: indexPath)
+
+        cell.textLabel?.text = categories[indexPath.row]
+        cell.detailTextLabel?.text = "$\(totalSpent[indexPath.row])"
+
+        return cell
     }
 
     func setPieChart(dataPoints: [String], values: [Double]) {
