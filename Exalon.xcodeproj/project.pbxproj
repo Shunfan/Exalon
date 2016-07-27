@@ -13,6 +13,7 @@
 		37453E5D1D3318D600FD9D07 /* Exalon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37453E5B1D3318D600FD9D07 /* Exalon.xcdatamodeld */; };
 		37453E5F1D3318D600FD9D07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37453E5E1D3318D600FD9D07 /* Assets.xcassets */; };
 		37453E621D3318D600FD9D07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37453E601D3318D600FD9D07 /* LaunchScreen.storyboard */; };
+		37FE49B61D485AD300F86C0E /* AddItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE49B51D485AD300F86C0E /* AddItemTableViewController.swift */; };
 		F5DFB056C3C680BB005B9450 /* Pods_Exalon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 590274D659A7C8FBE28DB4D0 /* Pods_Exalon.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +27,7 @@
 		37453E5E1D3318D600FD9D07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37453E611D3318D600FD9D07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		37453E631D3318D600FD9D07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37FE49B51D485AD300F86C0E /* AddItemTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemTableViewController.swift; sourceTree = "<group>"; };
 		590274D659A7C8FBE28DB4D0 /* Pods_Exalon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Exalon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02778913A13E49C506F2169 /* Pods-Exalon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Exalon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Exalon/Pods-Exalon.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,6 +80,7 @@
 				37453E601D3318D600FD9D07 /* LaunchScreen.storyboard */,
 				37453E631D3318D600FD9D07 /* Info.plist */,
 				37453E5B1D3318D600FD9D07 /* Exalon.xcdatamodeld */,
+				37FE49B51D485AD300F86C0E /* AddItemTableViewController.swift */,
 			);
 			path = Exalon;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37FE49B61D485AD300F86C0E /* AddItemTableViewController.swift in Sources */,
 				37453E5D1D3318D600FD9D07 /* Exalon.xcdatamodeld in Sources */,
 				37453E571D3318D600FD9D07 /* OverviewViewController.swift in Sources */,
 				37453E551D3318D600FD9D07 /* AppDelegate.swift in Sources */,
