@@ -12,8 +12,8 @@ class CategoryTableViewController: UITableViewController {
     let categoryCellIdentifier = "CategoryCell"
     
     // Example data for demo use
-    let depositList = ["Paycheck", "Gift", "Cash", "Transfer"];
-    let withdrawList = ["Book", "Viedo Game", "Food", "Gas"];
+    let depositList = ["Paycheck", "Gift", "Cash", "Transfer"]
+    let withdrawList = ["Book", "Viedo Game", "Food", "Gas"]
 
     override func viewDidLoad() {
         super.viewDidLoad()

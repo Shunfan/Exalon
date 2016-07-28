@@ -13,6 +13,7 @@
 		37453E5D1D3318D600FD9D07 /* Exalon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37453E5B1D3318D600FD9D07 /* Exalon.xcdatamodeld */; };
 		37453E5F1D3318D600FD9D07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37453E5E1D3318D600FD9D07 /* Assets.xcassets */; };
 		37453E621D3318D600FD9D07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37453E601D3318D600FD9D07 /* LaunchScreen.storyboard */; };
+		37D10B121D498681004B15C2 /* BudgetPlanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D10B111D498681004B15C2 /* BudgetPlanTableViewController.swift */; };
 		37FE49B61D485AD300F86C0E /* AddItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE49B51D485AD300F86C0E /* AddItemTableViewController.swift */; };
 		37FE49D81D4864F000F86C0E /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE49D71D4864F000F86C0E /* CategoryTableViewController.swift */; };
 		37FE49DA1D486C2D00F86C0E /* AddCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE49D91D486C2D00F86C0E /* AddCategoryTableViewController.swift */; };
@@ -29,6 +30,7 @@
 		37453E5E1D3318D600FD9D07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37453E611D3318D600FD9D07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		37453E631D3318D600FD9D07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37D10B111D498681004B15C2 /* BudgetPlanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetPlanTableViewController.swift; sourceTree = "<group>"; };
 		37FE49B51D485AD300F86C0E /* AddItemTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemTableViewController.swift; sourceTree = "<group>"; };
 		37FE49D71D4864F000F86C0E /* CategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		37FE49D91D486C2D00F86C0E /* AddCategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCategoryTableViewController.swift; sourceTree = "<group>"; };
@@ -77,16 +79,17 @@
 		37453E531D3318D600FD9D07 /* Exalon */ = {
 			isa = PBXGroup;
 			children = (
-				37453E541D3318D600FD9D07 /* AppDelegate.swift */,
-				37453E561D3318D600FD9D07 /* OverviewViewController.swift */,
-				37453E581D3318D600FD9D07 /* Main.storyboard */,
-				37453E5E1D3318D600FD9D07 /* Assets.xcassets */,
-				37453E601D3318D600FD9D07 /* LaunchScreen.storyboard */,
-				37453E631D3318D600FD9D07 /* Info.plist */,
-				37453E5B1D3318D600FD9D07 /* Exalon.xcdatamodeld */,
-				37FE49B51D485AD300F86C0E /* AddItemTableViewController.swift */,
-				37FE49D71D4864F000F86C0E /* CategoryTableViewController.swift */,
 				37FE49D91D486C2D00F86C0E /* AddCategoryTableViewController.swift */,
+				37FE49B51D485AD300F86C0E /* AddItemTableViewController.swift */,
+				37453E541D3318D600FD9D07 /* AppDelegate.swift */,
+				37453E5E1D3318D600FD9D07 /* Assets.xcassets */,
+				37FE49D71D4864F000F86C0E /* CategoryTableViewController.swift */,
+				37453E5B1D3318D600FD9D07 /* Exalon.xcdatamodeld */,
+				37453E631D3318D600FD9D07 /* Info.plist */,
+				37453E601D3318D600FD9D07 /* LaunchScreen.storyboard */,
+				37453E581D3318D600FD9D07 /* Main.storyboard */,
+				37453E561D3318D600FD9D07 /* OverviewViewController.swift */,
+				37D10B111D498681004B15C2 /* BudgetPlanTableViewController.swift */,
 			);
 			path = Exalon;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				37FE49B61D485AD300F86C0E /* AddItemTableViewController.swift in Sources */,
 				37FE49DA1D486C2D00F86C0E /* AddCategoryTableViewController.swift in Sources */,
 				37453E5D1D3318D600FD9D07 /* Exalon.xcdatamodeld in Sources */,
+				37D10B121D498681004B15C2 /* BudgetPlanTableViewController.swift in Sources */,
 				37FE49D81D4864F000F86C0E /* CategoryTableViewController.swift in Sources */,
 				37453E571D3318D600FD9D07 /* OverviewViewController.swift in Sources */,
 				37453E551D3318D600FD9D07 /* AppDelegate.swift in Sources */,
