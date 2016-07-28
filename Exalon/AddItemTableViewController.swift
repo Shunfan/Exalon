@@ -7,17 +7,19 @@
 //
 
 import UIKit
+import ActionSheetPicker_3_0
 
 class AddItemTableViewController: UITableViewController {
-
+    @IBOutlet weak var itemTypeLabel: UILabel!
+    @IBOutlet weak var itemDateLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = NSDateFormatterStyle.LongStyle
+        let dateString = formatter.stringFromDate(NSDate())
+        self.itemDateLabel.text = dateString
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,15 +28,34 @@ class AddItemTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch (indexPath.row) {
+        case 0:
+            ActionSheetMultipleStringPicker.showPickerWithTitle("Type", rows: [
+                ["Withdraw", "Deposit"]
+                ], initialSelection: self.itemTypeLabel.text == "Withdraw" ? [0] : [1], doneBlock: {
+                    picker, values, indexes in
+                    if values[0] as! NSObject == 0 {
+                        self.itemTypeLabel.text = "Withdraw"
+                    } else {
+                        self.itemTypeLabel.text = "Deposit"
+                    }
+                    return
+                }, cancelBlock: { ActionMultipleStringCancelBlock in return }, origin: tableView)
+        case 3:
+            ActionSheetDatePicker.showPickerWithTitle("Date", datePickerMode: .Date, selectedDate: NSDate(), doneBlock: {
+                (picker, values, indexes) -> Void in
+                let formatter = NSDateFormatter()
+                formatter.dateStyle = NSDateFormatterStyle.LongStyle
+                let dateString = formatter.stringFromDate(values as! NSDate)
+                self.itemDateLabel.text = dateString
+                return
+                }, cancelBlock: { (ActionMultipleStringCancelBlock) -> Void in
+                    return
+                }, origin: tableView)
+        default:
+            print("error")
+        }
     }
 
     /*
