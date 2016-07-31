@@ -114,9 +114,6 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
                 let newIndexPath = NSIndexPath(forRow: withdrawList.count - 1, inSection: 1)
                 tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
             }
-        case .Delete:
-            print("hehe xd 2")
-            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
         default:
             return
         }
