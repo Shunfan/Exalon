@@ -17,6 +17,13 @@
 		37FE49B61D485AD300F86C0E /* AddItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE49B51D485AD300F86C0E /* AddItemTableViewController.swift */; };
 		37FE49D81D4864F000F86C0E /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE49D71D4864F000F86C0E /* CategoryTableViewController.swift */; };
 		37FE49DA1D486C2D00F86C0E /* AddCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE49D91D486C2D00F86C0E /* AddCategoryTableViewController.swift */; };
+		CDF6BB881D4D841C003C1ED1 /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6BB821D4D841C003C1ED1 /* Item+CoreDataProperties.swift */; };
+		CDF6BB891D4D841C003C1ED1 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6BB831D4D841C003C1ED1 /* Item.swift */; };
+		CDF6BB8A1D4D841C003C1ED1 /* Budget+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6BB841D4D841C003C1ED1 /* Budget+CoreDataProperties.swift */; };
+		CDF6BB8B1D4D841C003C1ED1 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6BB851D4D841C003C1ED1 /* Budget.swift */; };
+		CDF6BB8C1D4D841C003C1ED1 /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6BB861D4D841C003C1ED1 /* Category+CoreDataProperties.swift */; };
+		CDF6BB8D1D4D841C003C1ED1 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6BB871D4D841C003C1ED1 /* Category.swift */; };
+		CDF6BB8F1D4D8F5D003C1ED1 /* CoreDataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6BB8E1D4D8F5D003C1ED1 /* CoreDataUtils.swift */; };
 		F5DFB056C3C680BB005B9450 /* Pods_Exalon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 590274D659A7C8FBE28DB4D0 /* Pods_Exalon.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +43,13 @@
 		37FE49D91D486C2D00F86C0E /* AddCategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCategoryTableViewController.swift; sourceTree = "<group>"; };
 		590274D659A7C8FBE28DB4D0 /* Pods_Exalon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Exalon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02778913A13E49C506F2169 /* Pods-Exalon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Exalon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Exalon/Pods-Exalon.release.xcconfig"; sourceTree = "<group>"; };
+		CDF6BB821D4D841C003C1ED1 /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CDF6BB831D4D841C003C1ED1 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		CDF6BB841D4D841C003C1ED1 /* Budget+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Budget+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CDF6BB851D4D841C003C1ED1 /* Budget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
+		CDF6BB861D4D841C003C1ED1 /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CDF6BB871D4D841C003C1ED1 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		CDF6BB8E1D4D8F5D003C1ED1 /* CoreDataUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +93,7 @@
 		37453E531D3318D600FD9D07 /* Exalon */ = {
 			isa = PBXGroup;
 			children = (
+				CDF6BB811D4D8400003C1ED1 /* Core Data */,
 				37FE49D91D486C2D00F86C0E /* AddCategoryTableViewController.swift */,
 				37FE49B51D485AD300F86C0E /* AddItemTableViewController.swift */,
 				37453E541D3318D600FD9D07 /* AppDelegate.swift */,
@@ -101,6 +116,20 @@
 				B02778913A13E49C506F2169 /* Pods-Exalon.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		CDF6BB811D4D8400003C1ED1 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				CDF6BB821D4D841C003C1ED1 /* Item+CoreDataProperties.swift */,
+				CDF6BB831D4D841C003C1ED1 /* Item.swift */,
+				CDF6BB841D4D841C003C1ED1 /* Budget+CoreDataProperties.swift */,
+				CDF6BB851D4D841C003C1ED1 /* Budget.swift */,
+				CDF6BB861D4D841C003C1ED1 /* Category+CoreDataProperties.swift */,
+				CDF6BB871D4D841C003C1ED1 /* Category.swift */,
+				CDF6BB8E1D4D8F5D003C1ED1 /* CoreDataUtils.swift */,
+			);
+			name = "Core Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,12 +254,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDF6BB8A1D4D841C003C1ED1 /* Budget+CoreDataProperties.swift in Sources */,
 				37FE49B61D485AD300F86C0E /* AddItemTableViewController.swift in Sources */,
+				CDF6BB891D4D841C003C1ED1 /* Item.swift in Sources */,
 				37FE49DA1D486C2D00F86C0E /* AddCategoryTableViewController.swift in Sources */,
+				CDF6BB881D4D841C003C1ED1 /* Item+CoreDataProperties.swift in Sources */,
 				37453E5D1D3318D600FD9D07 /* Exalon.xcdatamodeld in Sources */,
 				37D10B121D498681004B15C2 /* BudgetPlanTableViewController.swift in Sources */,
+				CDF6BB8C1D4D841C003C1ED1 /* Category+CoreDataProperties.swift in Sources */,
+				CDF6BB8F1D4D8F5D003C1ED1 /* CoreDataUtils.swift in Sources */,
 				37FE49D81D4864F000F86C0E /* CategoryTableViewController.swift in Sources */,
+				CDF6BB8D1D4D841C003C1ED1 /* Category.swift in Sources */,
 				37453E571D3318D600FD9D07 /* OverviewViewController.swift in Sources */,
+				CDF6BB8B1D4D841C003C1ED1 /* Budget.swift in Sources */,
 				37453E551D3318D600FD9D07 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
