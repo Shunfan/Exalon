@@ -103,7 +103,6 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch type {
         case .Insert:
-            print("hehe xd 1")
             let category = anObject as! Category
             
             if category.isDeposit!.boolValue {
