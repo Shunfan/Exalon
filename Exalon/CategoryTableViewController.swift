@@ -7,31 +7,51 @@
 //
 
 import UIKit
+import CoreData
 
-class CategoryTableViewController: UITableViewController {
+class CategoryTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     let categoryCellIdentifier = "CategoryCell"
     
     // Example data for demo use
-    let depositList = ["Paycheck", "Gift", "Cash", "Transfer"]
-    let withdrawList = ["Book", "Viedo Game", "Food", "Gas"]
+    var depositList: [Category] = []
+    var withdrawList: [Category] = []
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        depositList = []
+        withdrawList = []
+        
+        for category in fetchedResultsController.fetchedObjects! {
+            let category = category as! Category
+            
+            if category.isDeposit!.boolValue {
+                self.depositList.append(category)
+            } else {
+                self.withdrawList.append(category)
+            }
+        }
+        
+        self.tableView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
-    // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 4
+        switch (section) {
+        case 0:
+            return self.depositList.count
+        case 1:
+            return self.withdrawList.count
+        default:
+            return 0
+        }
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -41,7 +61,7 @@ class CategoryTableViewController: UITableViewController {
         case 1:
             return "Withdraw"
         default:
-            return "NA"
+            return "Other"
         }
     }
 
@@ -50,51 +70,59 @@ class CategoryTableViewController: UITableViewController {
 
         switch (indexPath.section) {
         case 0:
-            cell.textLabel?.text = depositList[indexPath.row]
+            cell.textLabel?.text = self.depositList[indexPath.row].name
         case 1:
-            cell.textLabel?.text = withdrawList[indexPath.row]
+            cell.textLabel?.text = self.withdrawList[indexPath.row].name
         default:
             cell.textLabel?.text = "Other"
         }
 
         return cell
     }
-
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    var fetchedResultsController: NSFetchedResultsController {
+        if _fetchedResultsController != nil {
+            return _fetchedResultsController!
+        }
+        
+        let fetchRequest = NSFetchRequest(entityName: "Category")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        fetchRequest.fetchBatchSize = 20
+        
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataUtils.managedObjectContext(), sectionNameKeyPath: nil, cacheName: "CategoryCache")
+        aFetchedResultsController.delegate = self
+        _fetchedResultsController = aFetchedResultsController
+        
+        do {
+            try _fetchedResultsController!.performFetch()
+        } catch {
+            print("Error in fetchedResultsController")
+            abort()
+        }
+        
+        return _fetchedResultsController!
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
+    
+    var _fetchedResultsController: NSFetchedResultsController? = nil
+    
+//    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+//        self.tableView.beginUpdates()
+//    }
+//    
+//    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+//        switch type {
+//        case .Insert:
+//            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+//        case .Delete:
+//            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+//        default:
+//            return
+//        }
+//    }
+//    
+//    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+//        self.tableView.endUpdates()
+//    }
 
     /*
     // MARK: - Navigation

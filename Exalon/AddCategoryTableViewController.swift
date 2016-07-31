@@ -7,15 +7,13 @@
 //
 
 import UIKit
+import CoreData
 import ActionSheetPicker_3_0
 
 class AddCategoryTableViewController: UITableViewController {
-    
     @IBOutlet weak var categoryTypeLabel: UILabel!
     @IBOutlet weak var categoryColorLabel: UILabel!
     @IBOutlet weak var categoryNameLabel: UILabel!
-
-
     
     var isDeposit : Bool = true
     
@@ -51,10 +49,8 @@ class AddCategoryTableViewController: UITableViewController {
                 let textField = ac.textFields?.first
                 
                 self.categoryNameLabel.text = textField?.text
-                
-                
-                CoreDataUtils.saveContext()
             }
+            
             ac.addAction(createList)
             self.presentViewController(ac, animated: true, completion: nil)
 
@@ -96,6 +92,16 @@ class AddCategoryTableViewController: UITableViewController {
         }
     }
     
+
+    @IBAction func addCategoryButtonPressed(sender: AnyObject) {
+        let category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: CoreDataUtils.managedObjectContext()) as! Category
+        category.name = self.categoryNameLabel.text
+        category.isDeposit = self.isDeposit
+        category.color = self.categoryColorLabel.text
+        
+        CoreDataUtils.saveContext()
+        navigationController?.popViewControllerAnimated(true)
+    }
 
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
