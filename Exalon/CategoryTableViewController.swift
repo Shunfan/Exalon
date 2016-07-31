@@ -15,12 +15,9 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
     // Example data for demo use
     var depositList: [Category] = []
     var withdrawList: [Category] = []
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        depositList = []
-        withdrawList = []
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         for category in fetchedResultsController.fetchedObjects! {
             let category = category as! Category
@@ -31,12 +28,6 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
                 self.withdrawList.append(category)
             }
         }
-        
-        self.tableView.reloadData()
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -105,24 +96,36 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
     
     var _fetchedResultsController: NSFetchedResultsController? = nil
     
-//    func controllerWillChangeContent(controller: NSFetchedResultsController) {
-//        self.tableView.beginUpdates()
-//    }
-//    
-//    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-//        switch type {
-//        case .Insert:
-//            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-//        case .Delete:
-//            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-//        default:
-//            return
-//        }
-//    }
-//    
-//    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-//        self.tableView.endUpdates()
-//    }
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        self.tableView.beginUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch type {
+        case .Insert:
+            print("hehe xd 1")
+            let category = anObject as! Category
+            
+            if category.isDeposit!.boolValue {
+                self.depositList.append(category)
+                let newIndexPath = NSIndexPath(forRow: depositList.count - 1, inSection: 0)
+                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+            } else {
+                self.withdrawList.append(category)
+                let newIndexPath = NSIndexPath(forRow: withdrawList.count - 1, inSection: 1)
+                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+            }
+        case .Delete:
+            print("hehe xd 2")
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        default:
+            return
+        }
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        self.tableView.endUpdates()
+    }
 
     /*
     // MARK: - Navigation

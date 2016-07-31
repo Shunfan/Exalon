@@ -9,7 +9,6 @@
 import UIKit
 import CoreData
 
-
 var _managedObjectContext : NSManagedObjectContext?
 
 class CoreDataUtils: NSObject {
@@ -34,4 +33,3 @@ class CoreDataUtils: NSObject {
     }
     
 }
-
