@@ -93,18 +93,18 @@
 		37453E531D3318D600FD9D07 /* Exalon */ = {
 			isa = PBXGroup;
 			children = (
-				CDF6BB811D4D8400003C1ED1 /* Core Data */,
 				37FE49D91D486C2D00F86C0E /* AddCategoryTableViewController.swift */,
 				37FE49B51D485AD300F86C0E /* AddItemTableViewController.swift */,
 				37453E541D3318D600FD9D07 /* AppDelegate.swift */,
 				37453E5E1D3318D600FD9D07 /* Assets.xcassets */,
+				37D10B111D498681004B15C2 /* BudgetPlanTableViewController.swift */,
 				37FE49D71D4864F000F86C0E /* CategoryTableViewController.swift */,
+				CDF6BB811D4D8400003C1ED1 /* Core Data */,
 				37453E5B1D3318D600FD9D07 /* Exalon.xcdatamodeld */,
 				37453E631D3318D600FD9D07 /* Info.plist */,
 				37453E601D3318D600FD9D07 /* LaunchScreen.storyboard */,
 				37453E581D3318D600FD9D07 /* Main.storyboard */,
 				37453E561D3318D600FD9D07 /* OverviewViewController.swift */,
-				37D10B111D498681004B15C2 /* BudgetPlanTableViewController.swift */,
 			);
 			path = Exalon;
 			sourceTree = "<group>";
@@ -121,13 +121,13 @@
 		CDF6BB811D4D8400003C1ED1 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				CDF6BB821D4D841C003C1ED1 /* Item+CoreDataProperties.swift */,
-				CDF6BB831D4D841C003C1ED1 /* Item.swift */,
-				CDF6BB841D4D841C003C1ED1 /* Budget+CoreDataProperties.swift */,
 				CDF6BB851D4D841C003C1ED1 /* Budget.swift */,
-				CDF6BB861D4D841C003C1ED1 /* Category+CoreDataProperties.swift */,
+				CDF6BB841D4D841C003C1ED1 /* Budget+CoreDataProperties.swift */,
 				CDF6BB871D4D841C003C1ED1 /* Category.swift */,
+				CDF6BB861D4D841C003C1ED1 /* Category+CoreDataProperties.swift */,
 				CDF6BB8E1D4D8F5D003C1ED1 /* CoreDataUtils.swift */,
+				CDF6BB831D4D841C003C1ED1 /* Item.swift */,
+				CDF6BB821D4D841C003C1ED1 /* Item+CoreDataProperties.swift */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";

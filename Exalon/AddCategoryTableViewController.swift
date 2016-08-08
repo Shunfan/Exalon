@@ -17,7 +17,6 @@ class AddCategoryTableViewController: UITableViewController {
     
     var isDeposit : Bool = true
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -31,13 +30,11 @@ class AddCategoryTableViewController: UITableViewController {
             
             // Add Text Field
             ac.addTextFieldWithConfigurationHandler { (textField) in
-//                textField.placeholder = "Name for this Category"
                 if self.categoryNameLabel.text == "Name for Category" {
                     textField.text = ""
                 } else {
                     textField.text = self.categoryNameLabel.text
                 }
-
             }
             
             // Add a cancel
@@ -53,7 +50,6 @@ class AddCategoryTableViewController: UITableViewController {
             
             ac.addAction(createList)
             self.presentViewController(ac, animated: true, completion: nil)
-
         case 1:
             self.isDeposit = !self.isDeposit
             if self.isDeposit {
