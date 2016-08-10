@@ -56,9 +56,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         
-        print(self.categoryNameList)
-        print(self.categoryAmountList)
-        
         setPieChart(self.categoryNameList, values: self.categoryAmountList)
     }
 
@@ -71,21 +68,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             dataEntries.append(dataEntry)
         }
         
-        print("1: \(self.categoryNameList)")
-        
-        
-        let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "Total Spent")
-        let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
-        self.pieChartView.data = pieChartData
-        
-        // Sets the center of the pieChart Text
-//        pieChartView.centerText = "Test"
-        // Removes discriptive text from individual slices
-        self.pieChartView.drawSliceTextEnabled = false
-        // Removes the center cut out of the graph
-        self.pieChartView.drawHoleEnabled = false
-        
-        
         var colors: [UIColor] = []
         
         for _ in 0..<dataPoints.count {
@@ -96,8 +78,18 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
             colors.append(color)
         }
-        
+
+        let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "Total Spent")
+        let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
         pieChartDataSet.colors = colors
+        self.pieChartView.data = pieChartData
+        
+        // Sets the center of the pieChart Text
+//        pieChartView.centerText = "Test"
+        // Removes discriptive text from individual slices
+        self.pieChartView.drawSliceTextEnabled = false
+        // Removes the center cut out of the graph
+        self.pieChartView.drawHoleEnabled = false
     }
     
     // MARK - UITableViewDelegate
