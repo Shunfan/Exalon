@@ -12,8 +12,8 @@ import CoreData
 
 class OverviewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
     let overviewCellIdentifier = "OverviewCell"
+    let editItemSegueIdentifier = "EditItem"
     
-    // Example data for demo use
     var categoryNameList = [String]()
     var categoryAmountList = [Double]()
     
@@ -22,7 +22,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var transactionTableView: UITableView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,10 +36,11 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         categoryAmountList.removeAll()
         
         let fetchRequest = NSFetchRequest(entityName: "Category")
+        
         do {
             try self.categoryList = CoreDataUtils.managedObjectContext().executeFetchRequest(fetchRequest) as! [Category]
         } catch {
-            // To be implement
+            // To be implemented
         }
         
         for category in self.categoryList {
@@ -52,13 +53,14 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                 for item in itemsInTheCategory {
                     amountCounter += item.amount as! Double
                 }
+                
                 self.categoryAmountList.append(amountCounter)
             }
         }
         
         setPieChart(self.categoryNameList, values: self.categoryAmountList)
     }
-
+    
     func setPieChart(dataPoints: [String], values: [Double]) {
         
         var dataEntries: [ChartDataEntry] = []
@@ -78,14 +80,14 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
             colors.append(color)
         }
-
+        
         let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "Total Spent")
         let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
         pieChartDataSet.colors = colors
         self.pieChartView.data = pieChartData
         
         // Sets the center of the pieChart Text
-//        pieChartView.centerText = "Test"
+        //        pieChartView.centerText = "Test"
         // Removes discriptive text from individual slices
         self.pieChartView.drawSliceTextEnabled = false
         // Removes the center cut out of the graph
@@ -105,6 +107,15 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         cell.detailTextLabel?.text = "$\(self.itemList[indexPath.row].amount!)"
         
         return cell
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == self.editItemSegueIdentifier {
+            if let indexPath = self.transactionTableView.indexPathForSelectedRow {
+                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! ItemTableViewController
+                controller.itemToEdit = self.itemList[indexPath.row]
+            }
+        }
     }
     
     // MARK - NSFetchedResultsControllerDelegate
@@ -152,7 +163,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.transactionTableView.endUpdates()
     }
-
+    
 }
 
 public func ==(lhs: NSDate, rhs: NSDate) -> Bool {

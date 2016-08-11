@@ -1,5 +1,5 @@
 //
-//  AddItemTableViewController.swift
+//  ItemTableViewController.swift
 //  Exalon
 //
 //  Created by Shunfan Du on 7/26/16.
@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import ActionSheetPicker_3_0
 
-class AddItemTableViewController: UITableViewController {
+class ItemTableViewController: UITableViewController {
     
     @IBOutlet weak var itemTypeLabel: UILabel!
     @IBOutlet weak var itemCategoryLabel: UILabel!
@@ -18,6 +18,7 @@ class AddItemTableViewController: UITableViewController {
     @IBOutlet weak var itemAmountLabel: UILabel!
     @IBOutlet weak var itemDateLabel: UILabel!
     
+    var itemToEdit: Item?
     var isDeposit : Bool = true
     var targetCategory: Category!
     var targetDate: NSDate!
@@ -27,8 +28,20 @@ class AddItemTableViewController: UITableViewController {
         
         let formatter = NSDateFormatter()
         formatter.dateStyle = NSDateFormatterStyle.LongStyle
-        let dateString = formatter.stringFromDate(NSDate())
-        self.itemDateLabel.text = dateString
+        
+        if itemToEdit != nil {
+            let category = self.itemToEdit!.category as! Category
+            self.itemTypeLabel.text = category.isDeposit!.boolValue ? "Deposit" : "Withdraw"
+            self.itemCategoryLabel.text = category.name
+            self.itemNameLabel.text = self.itemToEdit!.name
+            self.itemAmountLabel.text = String(self.itemToEdit!.amount!)
+            self.itemDateLabel.text = formatter.stringFromDate(self.itemToEdit!.date!)
+        } else {
+            // Set date to today by default
+            self.targetDate = NSDate()
+            let dateString = formatter.stringFromDate(self.targetDate)
+            self.itemDateLabel.text = dateString
+        }
     }
     
     @IBAction func addButtonPressed(sender: AnyObject) {
@@ -39,7 +52,11 @@ class AddItemTableViewController: UITableViewController {
         item.date = self.targetDate
         
         CoreDataUtils.saveContext()
-        navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func cancelButtonPressed(sender: AnyObject) {
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func convertStringToDouble(text: String) -> Double {
@@ -166,5 +183,5 @@ class AddItemTableViewController: UITableViewController {
             print("error")
         }
     }
-
+    
 }
