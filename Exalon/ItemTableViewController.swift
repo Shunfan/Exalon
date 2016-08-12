@@ -20,8 +20,8 @@ class ItemTableViewController: UITableViewController {
     
     var itemToEdit: Item?
     var isDeposit : Bool = true
-    var targetCategory: Category!
-    var targetDate: NSDate!
+    var itemCategory: Category!
+    var itemDate: NSDate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,29 +30,48 @@ class ItemTableViewController: UITableViewController {
         formatter.dateStyle = NSDateFormatterStyle.LongStyle
         
         if itemToEdit != nil {
-            let category = self.itemToEdit!.category as! Category
-            self.itemTypeLabel.text = category.isDeposit!.boolValue ? "Deposit" : "Withdraw"
-            self.itemCategoryLabel.text = category.name
+            self.navigationItem.title = "Edit an Item"
+            
+            self.itemCategory = self.itemToEdit!.category as! Category
+            self.isDeposit = self.itemCategory.isDeposit!.boolValue
+            self.itemDate = self.itemToEdit!.date
+            
+            self.itemTypeLabel.text = self.isDeposit ? "Deposit" : "Withdraw"
+            self.itemCategoryLabel.text = self.itemCategory.name
             self.itemNameLabel.text = self.itemToEdit!.name
             self.itemAmountLabel.text = String(self.itemToEdit!.amount!)
             self.itemDateLabel.text = formatter.stringFromDate(self.itemToEdit!.date!)
         } else {
             // Set date to today by default
-            self.targetDate = NSDate()
-            let dateString = formatter.stringFromDate(self.targetDate)
+            self.itemDate = NSDate()
+            let dateString = formatter.stringFromDate(self.itemDate)
             self.itemDateLabel.text = dateString
         }
     }
     
-    @IBAction func addButtonPressed(sender: AnyObject) {
-        let item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: CoreDataUtils.managedObjectContext()) as! Item
-        item.category = self.targetCategory
-        item.name = self.itemNameLabel.text
-        item.amount = convertStringToDouble(self.itemAmountLabel.text!)
-        item.date = self.targetDate
-        
-        CoreDataUtils.saveContext()
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func saveButtonPressed(sender: AnyObject) {
+        if self.itemCategory == nil || self.itemNameLabel.text == "Not Set" || self.itemAmountLabel.text == "Not Set" {
+            let alertController = UIAlertController(title: "Basic Info Required", message: "Category, name and amount are required fields.", preferredStyle: .Alert)
+            let OKAlertAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alertController.addAction(OKAlertAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        } else {
+            if itemToEdit != nil {
+                itemToEdit!.category = self.itemCategory
+                itemToEdit!.name = self.itemNameLabel.text
+                itemToEdit!.amount = convertStringToDouble(self.itemAmountLabel.text!)
+                itemToEdit!.date = self.itemDate
+            } else {
+                let item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: CoreDataUtils.managedObjectContext()) as! Item
+                item.category = self.itemCategory
+                item.name = self.itemNameLabel.text
+                item.amount = convertStringToDouble(self.itemAmountLabel.text!)
+                item.date = self.itemDate
+            }
+            
+            CoreDataUtils.saveContext()
+            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     @IBAction func cancelButtonPressed(sender: AnyObject) {
@@ -105,63 +124,54 @@ class ItemTableViewController: UITableViewController {
                 categoryNameList.append(category.name!)
             }
             
-            ActionSheetMultipleStringPicker.showPickerWithTitle(
-                "Category",
-                rows: [categoryNameList],
-                initialSelection: [0],
-                doneBlock: { picker, indexes, values in
-                    // Save the category so that the item can be saved into that category later
-                    self.targetCategory = categoryFilteredList[indexes[0] as! Int]
-                    self.itemCategoryLabel.text = categoryNameList[indexes[0] as! Int]
-                    return
-                },
-                cancelBlock: { ActionMultipleStringCancelBlock in return },
-                origin: tableView)
+            if categoryFilteredList.count != 0 {
+                ActionSheetMultipleStringPicker.showPickerWithTitle(
+                    "Category",
+                    rows: [categoryNameList],
+                    initialSelection: [0],
+                    doneBlock: { picker, indexes, values in
+                        // Save the category so that the item can be saved into that category later
+                        self.itemCategory = categoryFilteredList[indexes[0] as! Int]
+                        self.itemCategoryLabel.text = categoryNameList[indexes[0] as! Int]
+                        return
+                    },
+                    cancelBlock: { ActionMultipleStringCancelBlock in return },
+                    origin: tableView)
+            }
         case 2:
             let ac = UIAlertController(title: "Item Name", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            
-            // Add Text Field
+
             ac.addTextFieldWithConfigurationHandler { (textField) in
-                if self.itemNameLabel.text == "Not Set" {
-                    textField.text = ""
-                } else {
-                    textField.text = self.itemNameLabel.text
-                }            }
-            
-            // Add a cancel
+                textField.text = self.itemNameLabel.text == "Not Set" ? "" : self.itemNameLabel.text
+            }
+
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil)
-            ac.addAction(cancelAction)
-            
-            // Add an OK button
-            let createList = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) in
-                let textField = ac.textFields?.first
-                
-                self.itemNameLabel.text = textField?.text
+
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) in
+                let textField = ac.textFields!.first!
+                self.itemNameLabel.text = textField.text
             }
             
-            ac.addAction(createList)
+            ac.addAction(cancelAction)
+            ac.addAction(okAction)
             self.presentViewController(ac, animated: true, completion: nil)
         case 3:
             let ac = UIAlertController(title: "Item Amount", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            
-            // Add Text Field
+
             ac.addTextFieldWithConfigurationHandler { (textField) in
                 textField.keyboardType = .DecimalPad
-                textField.text = self.itemAmountLabel.text
+                textField.text = self.itemAmountLabel.text == "Not Set" ? "" : self.itemAmountLabel.text
             }
-            
-            // Add a cancel
+
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil)
-            ac.addAction(cancelAction)
-            
-            // Add an OK button
-            let createList = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) in
-                let textField = ac.textFields?.first
-                
-                self.itemAmountLabel.text = textField?.text
+
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) in
+                let textField = ac.textFields!.first!
+                self.itemAmountLabel.text = String(self.convertStringToDouble(textField.text!))
             }
             
-            ac.addAction(createList)
+            ac.addAction(cancelAction)
+            ac.addAction(okAction)
             self.presentViewController(ac, animated: true, completion: nil)
         case 4:
             ActionSheetDatePicker.showPickerWithTitle(
@@ -169,7 +179,7 @@ class ItemTableViewController: UITableViewController {
                 datePickerMode: .Date,
                 selectedDate: NSDate(),
                 doneBlock: { (picker, values, indexes) -> Void in
-                    self.targetDate = values as! NSDate
+                    self.itemDate = values as! NSDate
                     
                     let formatter = NSDateFormatter()
                     formatter.dateStyle = NSDateFormatterStyle.LongStyle

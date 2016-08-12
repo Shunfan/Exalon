@@ -37,9 +37,9 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
         case 0:
-            return self.depositList.count
+            return max(self.depositList.count, 1)
         case 1:
-            return self.withdrawList.count
+            return max(self.withdrawList.count, 1)
         default:
             return 0
         }
@@ -61,9 +61,17 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
 
         switch (indexPath.section) {
         case 0:
-            cell.textLabel?.text = self.depositList[indexPath.row].name
+            if self.depositList.count == 0 {
+                cell.textLabel?.text = "No deposit category"
+            } else {
+                cell.textLabel?.text = self.depositList[indexPath.row].name
+            }
         case 1:
-            cell.textLabel?.text = self.withdrawList[indexPath.row].name
+            if self.withdrawList.count == 0 {
+                cell.textLabel?.text = "No withdraw category"
+            } else {
+                cell.textLabel?.text = self.withdrawList[indexPath.row].name
+            }
         default:
             cell.textLabel?.text = "Other"
         }
@@ -107,12 +115,24 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
             
             if category.isDeposit!.boolValue {
                 self.depositList.append(category)
-                let newIndexPath = NSIndexPath(forRow: depositList.count - 1, inSection: 0)
-                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+                
+                if self.depositList.count == 1 {
+                    let newIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+                    tableView.reloadRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+                } else {
+                    let newIndexPath = NSIndexPath(forRow: self.depositList.count - 1, inSection: 0)
+                    tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+                }
             } else {
                 self.withdrawList.append(category)
-                let newIndexPath = NSIndexPath(forRow: withdrawList.count - 1, inSection: 1)
-                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+                
+                if self.withdrawList.count == 1 {
+                    let newIndexPath = NSIndexPath(forRow: 0, inSection: 1)
+                    tableView.reloadRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+                } else {
+                    let newIndexPath = NSIndexPath(forRow: self.withdrawList.count - 1, inSection: 1)
+                    tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+                }
             }
         default:
             return
@@ -122,15 +142,5 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.tableView.endUpdates()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -12,13 +12,31 @@ import ActionSheetPicker_3_0
 
 class AddCategoryTableViewController: UITableViewController {
     @IBOutlet weak var categoryTypeLabel: UILabel!
-    @IBOutlet weak var categoryColorLabel: UILabel!
     @IBOutlet weak var categoryNameLabel: UILabel!
+    @IBOutlet weak var categoryColorView: UIView!
+    @IBOutlet weak var colorRedSlider: UISlider!
+    @IBOutlet weak var colorGreenSlider: UISlider!
+    @IBOutlet weak var colorBlueSlider: UISlider!
+    @IBOutlet weak var colorAlphaSlider: UISlider!
     
     var isDeposit : Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.updateCategoryColorView()
+    }
+    
+    @IBAction func sliderChanged(sender: AnyObject) {
+        self.updateCategoryColorView()
+    }
+    
+    func updateCategoryColorView() {
+        self.categoryColorView.backgroundColor = UIColor(
+            red: CGFloat(self.colorRedSlider.value),
+            green: CGFloat(self.colorGreenSlider.value),
+            blue: CGFloat(self.colorBlueSlider.value),
+            alpha: CGFloat(self.colorAlphaSlider.value)
+        )
     }
 
     // MARK: - Table view data source
@@ -57,34 +75,8 @@ class AddCategoryTableViewController: UITableViewController {
             } else {
                 self.categoryTypeLabel.text = "Withdraw"
             }
-        case 2:
-            ActionSheetMultipleStringPicker.showPickerWithTitle("Color", rows: [
-                ["Red", "Blue", "White", "Green", "Black", "Custom"]
-                ], initialSelection: [0], doneBlock: {
-                    picker, values, indexes in
-                    
-                    switch (values[0] as! Int){
-                    case 0:
-                        self.categoryColorLabel.text = "Red"
-                    case 1:
-                        self.categoryColorLabel.text = "Blue"
-                    case 2:
-                        self.categoryColorLabel.text = "White"
-                    case 3:
-                        self.categoryColorLabel.text = "Green"
-                    case 4:
-                        self.categoryColorLabel.text = "Black"
-                    case 5:
-                        self.categoryColorLabel.text = "Custom"
-                    default:
-                        return
-                    }
-                    
-                    
-                    return
-                }, cancelBlock: { ActionMultipleStringCancelBlock in return }, origin: tableView)
         default:
-            print("error")
+            print("NA")
         }
     }
     
@@ -93,7 +85,7 @@ class AddCategoryTableViewController: UITableViewController {
         let category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: CoreDataUtils.managedObjectContext()) as! Category
         category.name = self.categoryNameLabel.text
         category.isDeposit = self.isDeposit
-        category.color = self.categoryColorLabel.text
+        category.color = "\(self.colorRedSlider.value) \(self.colorGreenSlider.value) \(self.colorBlueSlider.value) \(self.colorAlphaSlider.value)"
         
         CoreDataUtils.saveContext()
         navigationController?.popViewControllerAnimated(true)

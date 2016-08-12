@@ -14,8 +14,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     let overviewCellIdentifier = "OverviewCell"
     let editItemSegueIdentifier = "EditItem"
     
-    var categoryNameList = [String]()
-    var categoryAmountList = [Double]()
+    var categoryData = [Category: Double]()
     
     var itemList: [Item]!
     var categoryList: [Category]!
@@ -32,57 +31,47 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func loadPieChart() {
-        categoryNameList.removeAll()
-        categoryAmountList.removeAll()
+        self.categoryData.removeAll()
         
-        let fetchRequest = NSFetchRequest(entityName: "Category")
-        
-        do {
-            try self.categoryList = CoreDataUtils.managedObjectContext().executeFetchRequest(fetchRequest) as! [Category]
-        } catch {
-            // To be implemented
-        }
-        
-        for category in self.categoryList {
-            if !category.isDeposit!.boolValue {
-                self.categoryNameList.append(category.name!)
-                
-                let itemsInTheCategory = category.items?.allObjects as! [Item]
-                var amountCounter = 0.0
-                
-                for item in itemsInTheCategory {
-                    amountCounter += item.amount as! Double
+        for item in self.itemList {
+            let itemCategory = item.category as! Category
+            let itemAmount = item.amount as! Double
+            
+            if !itemCategory.isDeposit!.boolValue {
+                if self.categoryData[itemCategory] != nil {
+                    self.categoryData[itemCategory] = self.categoryData[itemCategory]! + itemAmount
+                } else {
+                    self.categoryData[itemCategory] = itemAmount
                 }
-                
-                self.categoryAmountList.append(amountCounter)
             }
         }
         
-        setPieChart(self.categoryNameList, values: self.categoryAmountList)
+        setPieChart(Array(self.categoryData.keys), values: Array(self.categoryData.values))
     }
     
-    func setPieChart(dataPoints: [String], values: [Double]) {
+    func setPieChart(categories: [Category], values: [Double]) {
         
         var dataEntries: [ChartDataEntry] = []
         
-        for i in 0..<dataPoints.count {
+        for i in 0..<categories.count {
             let dataEntry = ChartDataEntry(value: values[i], xIndex: i)
             dataEntries.append(dataEntry)
         }
         
         var colors: [UIColor] = []
         
-        for _ in 0..<dataPoints.count {
-            let red = Double(arc4random_uniform(256))
-            let green = Double(arc4random_uniform(256))
-            let blue = Double(arc4random_uniform(256))
-            
-            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
-            colors.append(color)
-        }
+        colors = categories.map({ (category) -> UIColor in
+            let rgbaValues = category.color!.characters.split{$0 == " "}.map(String.init)
+            return UIColor(red: CGFloat(Double(rgbaValues[0])!),
+                           green: CGFloat(Double(rgbaValues[1])!),
+                           blue: CGFloat(Double(rgbaValues[2])!),
+                           alpha: CGFloat(Double(rgbaValues[3])!))
+        })
         
         let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "Total Spent")
-        let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
+        let pieChartData = PieChartData(xVals: categories.map({ (category) -> String in
+            return category.name!
+        }), dataSet: pieChartDataSet)
         pieChartDataSet.colors = colors
         self.pieChartView.data = pieChartData
         
@@ -104,7 +93,9 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCellWithIdentifier(overviewCellIdentifier, forIndexPath: indexPath)
         
         cell.textLabel?.text = self.itemList[indexPath.row].name
-        cell.detailTextLabel?.text = "$\(self.itemList[indexPath.row].amount!)"
+        
+        let itemCategory = self.itemList[indexPath.row].category as! Category
+        cell.detailTextLabel?.text = itemCategory.isDeposit!.boolValue ? "+ $\(self.itemList[indexPath.row].amount!)" : "- $\(self.itemList[indexPath.row].amount!)"
         
         return cell
     }
