@@ -147,7 +147,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             self.transactionTableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
             self.loadPieChart()
         default:
-            return
+            self.transactionTableView.reloadData()
+            self.loadPieChart()
         }
     }
     

@@ -56,11 +56,11 @@ class ItemTableViewController: UITableViewController {
             alertController.addAction(OKAlertAction)
             self.presentViewController(alertController, animated: true, completion: nil)
         } else {
-            if itemToEdit != nil {
-                itemToEdit!.category = self.itemCategory
-                itemToEdit!.name = self.itemNameLabel.text
-                itemToEdit!.amount = convertStringToDouble(self.itemAmountLabel.text!)
-                itemToEdit!.date = self.itemDate
+            if self.itemToEdit != nil {
+                self.itemToEdit!.category = self.itemCategory
+                self.itemToEdit!.name = self.itemNameLabel.text
+                self.itemToEdit!.amount = convertStringToDouble(self.itemAmountLabel.text!)
+                self.itemToEdit!.date = self.itemDate
             } else {
                 let item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: CoreDataUtils.managedObjectContext()) as! Item
                 item.category = self.itemCategory
