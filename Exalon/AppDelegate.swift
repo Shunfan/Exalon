@@ -13,8 +13,17 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var currentTotal: Double?
 
+    func setCurrentTotal(cT:Double){
+        self.currentTotal = cT
+    }
+    
+    func getCurrentTotal() -> Double {
+        return self.currentTotal!
+    }
 
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -109,3 +118,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension UIViewController {
+    var appDelegate : AppDelegate {
+        get {
+            return UIApplication.sharedApplication().delegate as! AppDelegate
+        }
+    }
+}

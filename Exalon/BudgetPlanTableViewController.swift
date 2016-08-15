@@ -7,18 +7,80 @@
 //
 
 import UIKit
+import CoreData
 import Charts
 
 class BudgetPlanTableViewController: UITableViewController {
     @IBOutlet weak var budgetPieChartView: PieChartView!
     
+    @IBOutlet weak var goalLabel: UILabel!
+    @IBOutlet weak var currentLabel: UILabel!
+    @IBOutlet weak var daysLeftLabel: UILabel!
+    @IBOutlet weak var dailyBudgetLabel: UILabel!
+    
+    
+    
     let categories = ["Spent", "Left"]
-    let data = [60.00, 40.00]
+    
+    var budgetPlan: Budget?
+    var isBudget: Bool = false
+    var isOverBudget: Bool = false
+    var goal: Double?
+    var current: Double?
+    var amountOver: Double?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setPieChart(categories, values: data)
+    
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        let fetchRequest = NSFetchRequest(entityName: "Budget")
+        fetchRequest.fetchBatchSize = 1
+        do {
+            var arr = try CoreDataUtils.managedObjectContext().executeFetchRequest(fetchRequest)
+            if arr.count > 0 {
+                budgetPlan = (arr[0] as! Budget)
+            }
+        } catch {
+        }
+
+        
+        if self.budgetPlan == nil {
+            budgetPlan = (NSEntityDescription.insertNewObjectForEntityForName("Budget", inManagedObjectContext: CoreDataUtils.managedObjectContext()) as! Budget)
+        }
+        
+        updateUI()
     }
+    func updateUI() {
+        self.current = self.appDelegate.getCurrentTotal()
+        self.currentLabel.text = "$" + String(self.current!)
+        
+        if (budgetPlan!.goal != nil) {
+            print("Good to GO!")
+            self.isBudget = true
+            self.goal = Double((budgetPlan!.goal)!)
+            self.goalLabel.text = "$" + String(self.goal!)
+        } else {
+            print("Budget Missing")
+            self.isBudget = false
+        }
+        
+        
+        
+        if isBudget {
+            if self.current > self.goal {
+                self.isOverBudget = true
+                self.amountOver = self.current!-self.goal!
+                let data = [self.goal!, 0]
+                setPieChart(categories, values: data)
+            } else {
+                self.isOverBudget = false
+                let data = [self.current!, self.goal!-self.current!]
+                setPieChart(categories, values: data)
+            }
+        }
+    }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -51,10 +113,25 @@ class BudgetPlanTableViewController: UITableViewController {
             dataEntries.append(dataEntry)
         }
         
+        let spent = UIColor(red: CGFloat(255/255), green: CGFloat(0/255), blue: CGFloat(0/255), alpha: 1)
+        let remaining = UIColor(red: CGFloat(0/255), green: CGFloat(255/255), blue: CGFloat(0/255), alpha: 1)
+        let colors: [UIColor] = [spent,remaining]
         
         let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "Budget")
         let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
+        pieChartDataSet.colors = colors
         budgetPieChartView.data = pieChartData
+        
+        if self.isOverBudget {
+            // Sets the center of the pieChart Text
+            budgetPieChartView.centerText = "Over Budget!"
+            // Removes discriptive text from individual slices
+            budgetPieChartView.drawSliceTextEnabled = false
+            // Removes the center cut out of the graph
+            budgetPieChartView.drawHoleEnabled = true
+
+        } else {
+        
         
         // Sets the center of the pieChart Text
         //        pieChartView.centerText = "Test"
@@ -62,21 +139,50 @@ class BudgetPlanTableViewController: UITableViewController {
         budgetPieChartView.drawSliceTextEnabled = false
         // Removes the center cut out of the graph
         budgetPieChartView.drawHoleEnabled = false
-        
-        
-        var colors: [UIColor] = []
-        
-        for _ in 0..<dataPoints.count {
-            let red = Double(arc4random_uniform(256))
-            let green = Double(arc4random_uniform(256))
-            let blue = Double(arc4random_uniform(256))
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch (indexPath.row) {
+        case 1:
+            let ac = UIAlertController(title: "Budget Plan Goal", message: "", preferredStyle: UIAlertControllerStyle.Alert)
             
-            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
-            colors.append(color)
+            // Add Text Field
+            ac.addTextFieldWithConfigurationHandler { (textField) in
+                textField.keyboardType = .DecimalPad
+                textField.text = self.goalLabel.text == "Not Set" ? "" : self.goalLabel.text
+            }
+            
+            // Add a cancel
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil)
+            ac.addAction(cancelAction)
+            
+            // Add an OK button
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) in
+                let textField = ac.textFields!.first!
+                self.goalLabel.text = "$" + String(self.convertStringToDouble(textField.text!))
+                self.budgetPlan!.goal = self.convertStringToDouble(textField.text!)
+                self.isBudget = true
+                CoreDataUtils.saveContext()
+                self.updateUI()
+            }
+            
+            ac.addAction(okAction)
+            self.presentViewController(ac, animated: true, completion: nil)
+        default:
+            print("NA")
+        }
+    }
+    
+    func convertStringToDouble(text: String) -> Double {
+        if Double(text) != nil {
+            return Double(text)!
         }
         
-        pieChartDataSet.colors = colors
+        return 0.0
     }
+
+
 
     /*
     // Override to support conditional editing of the table view.

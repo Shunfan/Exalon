@@ -16,6 +16,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     var categoryData = [Category: Double]()
     
+    var currentMonthTotal: Double = 0
+    
     var itemList: [Item]!
     var categoryList: [Category]!
     
@@ -32,11 +34,12 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     func loadPieChart() {
         self.categoryData.removeAll()
-        
+        self.currentMonthTotal = 0
         for item in self.itemList {
             let itemCategory = item.category as! Category
             let itemAmount = item.amount as! Double
-            
+
+            self.currentMonthTotal = self.currentMonthTotal + itemAmount
             if !itemCategory.isDeposit!.boolValue {
                 if self.categoryData[itemCategory] != nil {
                     self.categoryData[itemCategory] = self.categoryData[itemCategory]! + itemAmount
@@ -44,6 +47,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                     self.categoryData[itemCategory] = itemAmount
                 }
             }
+        self.appDelegate.setCurrentTotal(self.currentMonthTotal)
         }
         
         setPieChart(Array(self.categoryData.keys), values: Array(self.categoryData.values))
@@ -108,6 +112,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
     }
+    
     
     // MARK - NSFetchedResultsControllerDelegate
     
