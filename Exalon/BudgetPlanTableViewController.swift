@@ -84,7 +84,7 @@ class BudgetPlanTableViewController: UITableViewController {
             } else {
                 self.isOverBudget = false
                 self.dailyBudget = Double((self.goal!-self.current!)/Double(self.daysLeft!))
-                self.dailyBudgetLabel.text = "$" + String(self.dailyBudget!)
+                self.dailyBudgetLabel.text = "$" + String(round(100*self.dailyBudget!)/100)
                 let data = [self.current!, self.goal!-self.current!]
                 setPieChart(categories, values: data)
             }
