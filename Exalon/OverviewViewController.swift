@@ -10,7 +10,7 @@ import UIKit
 import Charts
 import CoreData
 
-class OverviewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
+class OverviewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let overviewCellIdentifier = "OverviewCell"
     let editItemSegueIdentifier = "EditItem"
     
@@ -36,15 +36,13 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         self.currentMonth = components.month
         self.reloadCurrentMonthLabel()
 
-        
         self.itemList = Utils.getItemsIn(self.currentYear, month: self.currentMonth)
-        print(Utils.getItemsIn(2016, month: 9))
-        
-        self.loadPieChart()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        
+        self.itemList = Utils.getItemsIn(self.currentYear, month: self.currentMonth)
         
         self.transactionTableView.reloadData()
         self.loadPieChart()
@@ -90,6 +88,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     func loadPieChart() {
         self.categoryData.removeAll()
         self.currentMonthTotal = 0
+        
         for item in self.itemList {
             let itemCategory = item.category as! Category
             let itemAmount = item.amount as! Double
@@ -102,13 +101,22 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                     self.categoryData[itemCategory] = itemAmount
                 }
             }
-        self.appDelegate.setCurrentTotal(self.currentMonthTotal)
+            
+            self.appDelegate.setCurrentTotal(self.currentMonthTotal)
         }
-        
-        setPieChart(Array(self.categoryData.keys), values: Array(self.categoryData.values))
+
+        self.setPieChart(Array(self.categoryData.keys), values: Array(self.categoryData.values))
     }
     
     func setPieChart(categories: [Category], values: [Double]) {
+        self.pieChartView.clear()
+        
+        self.pieChartView.noDataText = "No withdraw items in this month"
+        self.pieChartView.infoFont = UIFont.systemFontOfSize(CGFloat(20.0))
+        self.pieChartView.infoTextColor = UIColor.blackColor()
+        
+        
+        self.pieChartView.descriptionText = ""
         
         var dataEntries: [ChartDataEntry] = []
         
@@ -127,12 +135,18 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
                            alpha: CGFloat(Double(rgbaValues[3])!))
         })
         
-        let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "Total Spent")
+        let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "")
         let pieChartData = PieChartData(xVals: categories.map({ (category) -> String in
             return category.name!
         }), dataSet: pieChartDataSet)
         pieChartDataSet.colors = colors
         self.pieChartView.data = pieChartData
+        
+        print("\n")
+        print("\(dataEntries)")
+        print("\(pieChartDataSet)")
+        print("\(pieChartData)")
+        print("\(colors)")
         
         // Sets the center of the pieChart Text
         //        pieChartView.centerText = "Test"
@@ -168,61 +182,4 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    
-    // MARK - NSFetchedResultsControllerDelegate
-    
-    var fetchedResultsController: NSFetchedResultsController {
-        if _fetchedResultsController != nil {
-            return _fetchedResultsController!
-        }
-        
-        let fetchRequest = NSFetchRequest(entityName: "Item")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-        fetchRequest.fetchBatchSize = 20
-        
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataUtils.managedObjectContext(), sectionNameKeyPath: nil, cacheName: "ItemCache")
-        aFetchedResultsController.delegate = self
-        _fetchedResultsController = aFetchedResultsController
-        
-        do {
-            try _fetchedResultsController!.performFetch()
-        } catch {
-            print("Error in fetchedResultsController")
-            abort()
-        }
-        
-        return _fetchedResultsController!
-    }
-    
-    var _fetchedResultsController: NSFetchedResultsController? = nil
-    
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        self.transactionTableView.beginUpdates()
-    }
-    
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        switch type {
-        case .Insert:
-            self.transactionTableView.reloadData()
-            self.loadPieChart()
-        default:
-            self.transactionTableView.reloadData()
-            self.loadPieChart()
-        }
-    }
-    
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        self.transactionTableView.endUpdates()
-    }
-    
 }
-
-public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs === rhs || lhs.compare(rhs) == .OrderedSame
-}
-
-public func <(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs.compare(rhs) == .OrderedAscending
-}
-
-extension NSDate: Comparable { }
