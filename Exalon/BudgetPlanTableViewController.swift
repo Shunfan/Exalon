@@ -67,7 +67,7 @@ class BudgetPlanTableViewController: UITableViewController {
         if (budgetPlan!.goal != nil) {
             self.isBudget = true
             self.goal = Double((budgetPlan!.goal)!)
-            self.goalLabel.text = "$" + String(self.goal!)
+            self.goalLabel.text = Utils.getCurrency() + String(self.goal!)
         } else {
             self.isBudget = false
         }
@@ -84,7 +84,7 @@ class BudgetPlanTableViewController: UITableViewController {
             } else {
                 self.isOverBudget = false
                 self.dailyBudget = Double((self.goal!-self.current!)/Double(self.daysLeft!))
-                self.dailyBudgetLabel.text = "$" + String(round(100*self.dailyBudget!)/100)
+                self.dailyBudgetLabel.text = Utils.getCurrency() + String(round(100*self.dailyBudget!)/100)
                 let data = [self.current!, self.goal!-self.current!]
                 setPieChart(categories, values: data)
             }
@@ -161,7 +161,7 @@ class BudgetPlanTableViewController: UITableViewController {
             // Add Text Field
             ac.addTextFieldWithConfigurationHandler { (textField) in
                 textField.keyboardType = .DecimalPad
-                textField.text = self.goalLabel.text == "Not Set" ? "" : self.goalLabel.text
+                textField.text = self.goalLabel.text == "Not Set" ? "" : String(self.goal!)
             }
             
             // Add a cancel
@@ -171,7 +171,7 @@ class BudgetPlanTableViewController: UITableViewController {
             // Add an OK button
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) in
                 let textField = ac.textFields!.first!
-                self.goalLabel.text = "$" + String(self.convertStringToDouble(textField.text!))
+                self.goalLabel.text = Utils.getCurrency() + String(self.convertStringToDouble(textField.text!))
                 self.budgetPlan!.goal = self.convertStringToDouble(textField.text!)
                 self.isBudget = true
                 CoreDataUtils.saveContext()
