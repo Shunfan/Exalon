@@ -15,15 +15,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var currentTotal: Double?
     var settings: Settings?
+    var daysLeft: Int?
 
     func setCurrentTotal(cT: Double){
         self.currentTotal = cT
     }
     
     func getCurrentTotal() -> Double {
-        return self.currentTotal!
+        if self.currentTotal != nil {
+            return self.currentTotal!
+        }
+        return 0
     }
-
+    
+    func setDaysLeft(days: Int) {
+        self.daysLeft = days
+    }
+    
+    func getDaysLeft() -> Int {
+        return self.daysLeft!
+    }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         let fetchRequest = NSFetchRequest(entityName: "Settings")

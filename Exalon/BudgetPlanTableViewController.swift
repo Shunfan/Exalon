@@ -28,6 +28,8 @@ class BudgetPlanTableViewController: UITableViewController {
     var goal: Double?
     var current: Double?
     var amountOver: Double?
+    var daysLeft: Int?
+    var dailyBudget: Double?
 
     
 
@@ -52,15 +54,21 @@ class BudgetPlanTableViewController: UITableViewController {
     }
     func updateUI() {
         self.current = self.appDelegate.getCurrentTotal()
-        self.currentLabel.text = "$" + String(self.current!)
+        self.currentLabel.text = String(self.current!)
+        
+//        self.daysLeft = Utils.getDaysLeft()
+        self.daysLeft = self.appDelegate.getDaysLeft()
+        self.daysLeftLabel.text = String(self.daysLeft!)
+        
+        if self.goal>self.current {
+            self.isOverBudget = false
+        }
         
         if (budgetPlan!.goal != nil) {
-            print("Good to GO!")
             self.isBudget = true
             self.goal = Double((budgetPlan!.goal)!)
             self.goalLabel.text = "$" + String(self.goal!)
         } else {
-            print("Budget Missing")
             self.isBudget = false
         }
         
@@ -70,10 +78,13 @@ class BudgetPlanTableViewController: UITableViewController {
             if self.current > self.goal {
                 self.isOverBudget = true
                 self.amountOver = self.current!-self.goal!
+                self.dailyBudgetLabel.text = "Stop Spending You Peasant!!!"
                 let data = [self.goal!, 0]
                 setPieChart(categories, values: data)
             } else {
                 self.isOverBudget = false
+                self.dailyBudget = Double((self.goal!-self.current!)/Double(self.daysLeft!))
+                self.dailyBudgetLabel.text = "$" + String(self.dailyBudget!)
                 let data = [self.current!, self.goal!-self.current!]
                 setPieChart(categories, values: data)
             }
@@ -134,7 +145,7 @@ class BudgetPlanTableViewController: UITableViewController {
         
         
         // Sets the center of the pieChart Text
-        //        pieChartView.centerText = "Test"
+        budgetPieChartView.centerText = ""
         // Removes discriptive text from individual slices
         budgetPieChartView.drawSliceTextEnabled = false
         // Removes the center cut out of the graph

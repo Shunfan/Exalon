@@ -16,6 +16,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     
     var currentYear: Int!
     var currentMonth: Int!
+    var currentDay: Int!
+    var daysLeft: Int!
     
     var categoryData = [Category: Double]()
     var currentMonthTotal: Double = 0
@@ -31,13 +33,32 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Set up currentMonthYearLabel
         let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Year, .Month], fromDate: NSDate())
+        let components = calendar.components([.Year, .Month, .Day], fromDate: NSDate())
         self.currentYear = components.year
         self.currentMonth = components.month
+        self.currentDay = components.day
+        self.calculateDaysRemaining()
+//        Utils.setDaysLeft(self.daysLeft)
+        self.appDelegate.setDaysLeft(self.daysLeft)
         self.reloadCurrentMonthLabel()
 
         self.itemList = Utils.getItemsIn(self.currentYear, month: self.currentMonth)
     }
+    
+    func calculateDaysRemaining() {
+        if self.currentMonth == 4 || self.currentMonth == 6 || self.currentMonth == 9 || self.currentMonth == 11 {
+            self.daysLeft = 30 - self.currentDay
+        }else if self.currentMonth == 1 || self.currentMonth == 3 || self.currentMonth == 5 || self.currentMonth == 7 || self.currentMonth == 8 || self.currentMonth == 10 || self.currentMonth == 12 {
+            self.daysLeft = 31 - self.currentDay
+        } else {
+            if self.currentYear % 4 == 0 {
+                self.daysLeft = 29 - self.currentDay
+            } else {
+                self.daysLeft = 28 - self.currentDay
+            }
+        }
+    }
+    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)

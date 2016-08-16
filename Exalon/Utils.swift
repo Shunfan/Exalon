@@ -11,6 +11,7 @@ import CoreData
 class Utils: NSObject {
     var currency: String?
     var settings: Settings?
+    var daysLeft: Int?
     
     // Get the current currency string, for example, "$"
     static func getCurrency() -> String {
@@ -67,4 +68,12 @@ class Utils: NSObject {
         
         return endDate
     }
+    
+//    static func setDaysLeft(days: Int) {
+//        self.daysLeft = days
+//    }
+//    
+//    static func getDaysLeft() -> Int {
+//        return self.daysLeft!
+//    }
 }
