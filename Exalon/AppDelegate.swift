@@ -6,16 +6,17 @@
 //  Copyright © 2016 Rose-Hulman. All rights reserved.
 //
 
-import UIKit
 import CoreData
+import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var currentTotal: Double?
+    var settings: Settings?
 
-    func setCurrentTotal(cT:Double){
+    func setCurrentTotal(cT: Double){
         self.currentTotal = cT
     }
     
@@ -25,8 +26,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        let fetchRequest = NSFetchRequest(entityName: "Settings")
+        
+        do {
+            let settingsList = try CoreDataUtils.managedObjectContext().executeFetchRequest(fetchRequest)
+            
+            if settingsList.count > 0 {
+                self.settings = (settingsList[0] as! Settings)
+            }
+        } catch {
+            // To be implemented
+        }
+        
+        if self.settings == nil {
+            self.settings = (NSEntityDescription.insertNewObjectForEntityForName("Settings", inManagedObjectContext: CoreDataUtils.managedObjectContext()) as! Settings)
+            
+            self.settings!.currency = "$"
+            self.settings!.touchID = false
+            
+            CoreDataUtils.saveContext()
+        }
+        
+        if self.settings!.touchID!.boolValue {
+            self.showAuthenticationViewController()
+        } else {
+            self.showLoggedInViewController()
+        }
+        
         return true
+    }
+    
+    func showAuthenticationViewController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        window!.rootViewController = storyboard.instantiateViewControllerWithIdentifier("AuthenticationViewController")
+    }
+    
+    func showLoggedInViewController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        window!.rootViewController = storyboard.instantiateViewControllerWithIdentifier("LoggedInViewController")
     }
 
     func applicationWillResignActive(application: UIApplication) {

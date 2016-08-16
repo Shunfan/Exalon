@@ -13,6 +13,12 @@
 		37453E5D1D3318D600FD9D07 /* Exalon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37453E5B1D3318D600FD9D07 /* Exalon.xcdatamodeld */; };
 		37453E5F1D3318D600FD9D07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37453E5E1D3318D600FD9D07 /* Assets.xcassets */; };
 		37453E621D3318D600FD9D07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37453E601D3318D600FD9D07 /* LaunchScreen.storyboard */; };
+		3761A6101D62B39D0070D457 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3761A60F1D62B39D0070D457 /* SettingsTableViewController.swift */; };
+		3761A6121D62B55C0070D457 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3761A6111D62B55C0070D457 /* LocalAuthentication.framework */; };
+		3761A6141D62B6320070D457 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3761A6131D62B6320070D457 /* AuthenticationViewController.swift */; };
+		3761A6191D62C5820070D457 /* Settings+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3761A6171D62C5820070D457 /* Settings+CoreDataProperties.swift */; };
+		3761A61A1D62C5820070D457 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3761A6181D62C5820070D457 /* Settings.swift */; };
+		3761A6201D62CD890070D457 /* CurrencyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3761A61F1D62CD890070D457 /* CurrencyUtils.swift */; };
 		37D10B121D498681004B15C2 /* BudgetPlanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D10B111D498681004B15C2 /* BudgetPlanTableViewController.swift */; };
 		37FE49B61D485AD300F86C0E /* ItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE49B51D485AD300F86C0E /* ItemTableViewController.swift */; };
 		37FE49D81D4864F000F86C0E /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE49D71D4864F000F86C0E /* CategoryTableViewController.swift */; };
@@ -37,6 +43,12 @@
 		37453E5E1D3318D600FD9D07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37453E611D3318D600FD9D07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		37453E631D3318D600FD9D07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3761A60F1D62B39D0070D457 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		3761A6111D62B55C0070D457 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		3761A6131D62B6320070D457 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
+		3761A6171D62C5820070D457 /* Settings+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Settings+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3761A6181D62C5820070D457 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		3761A61F1D62CD890070D457 /* CurrencyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyUtils.swift; sourceTree = "<group>"; };
 		37D10B111D498681004B15C2 /* BudgetPlanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetPlanTableViewController.swift; sourceTree = "<group>"; };
 		37FE49B51D485AD300F86C0E /* ItemTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewController.swift; sourceTree = "<group>"; };
 		37FE49D71D4864F000F86C0E /* CategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3761A6121D62B55C0070D457 /* LocalAuthentication.framework in Frameworks */,
 				F5DFB056C3C680BB005B9450 /* Pods_Exalon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,6 +80,7 @@
 		1B41A52A25080EEE0EBCCB04 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3761A6111D62B55C0070D457 /* LocalAuthentication.framework */,
 				590274D659A7C8FBE28DB4D0 /* Pods_Exalon.framework */,
 			);
 			name = Frameworks;
@@ -94,7 +108,6 @@
 			isa = PBXGroup;
 			children = (
 				37FE49D91D486C2D00F86C0E /* AddCategoryTableViewController.swift */,
-				37FE49B51D485AD300F86C0E /* ItemTableViewController.swift */,
 				37453E541D3318D600FD9D07 /* AppDelegate.swift */,
 				37453E5E1D3318D600FD9D07 /* Assets.xcassets */,
 				37D10B111D498681004B15C2 /* BudgetPlanTableViewController.swift */,
@@ -102,9 +115,13 @@
 				CDF6BB811D4D8400003C1ED1 /* Core Data */,
 				37453E5B1D3318D600FD9D07 /* Exalon.xcdatamodeld */,
 				37453E631D3318D600FD9D07 /* Info.plist */,
+				37FE49B51D485AD300F86C0E /* ItemTableViewController.swift */,
 				37453E601D3318D600FD9D07 /* LaunchScreen.storyboard */,
 				37453E581D3318D600FD9D07 /* Main.storyboard */,
 				37453E561D3318D600FD9D07 /* OverviewViewController.swift */,
+				3761A60F1D62B39D0070D457 /* SettingsTableViewController.swift */,
+				3761A6131D62B6320070D457 /* AuthenticationViewController.swift */,
+				3761A61F1D62CD890070D457 /* CurrencyUtils.swift */,
 			);
 			path = Exalon;
 			sourceTree = "<group>";
@@ -128,6 +145,8 @@
 				CDF6BB8E1D4D8F5D003C1ED1 /* CoreDataUtils.swift */,
 				CDF6BB831D4D841C003C1ED1 /* Item.swift */,
 				CDF6BB821D4D841C003C1ED1 /* Item+CoreDataProperties.swift */,
+				3761A6181D62C5820070D457 /* Settings.swift */,
+				3761A6171D62C5820070D457 /* Settings+CoreDataProperties.swift */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -260,13 +279,18 @@
 				37FE49DA1D486C2D00F86C0E /* AddCategoryTableViewController.swift in Sources */,
 				CDF6BB881D4D841C003C1ED1 /* Item+CoreDataProperties.swift in Sources */,
 				37453E5D1D3318D600FD9D07 /* Exalon.xcdatamodeld in Sources */,
+				3761A61A1D62C5820070D457 /* Settings.swift in Sources */,
 				37D10B121D498681004B15C2 /* BudgetPlanTableViewController.swift in Sources */,
 				CDF6BB8C1D4D841C003C1ED1 /* Category+CoreDataProperties.swift in Sources */,
 				CDF6BB8F1D4D8F5D003C1ED1 /* CoreDataUtils.swift in Sources */,
 				37FE49D81D4864F000F86C0E /* CategoryTableViewController.swift in Sources */,
 				CDF6BB8D1D4D841C003C1ED1 /* Category.swift in Sources */,
+				3761A6101D62B39D0070D457 /* SettingsTableViewController.swift in Sources */,
+				3761A6141D62B6320070D457 /* AuthenticationViewController.swift in Sources */,
 				37453E571D3318D600FD9D07 /* OverviewViewController.swift in Sources */,
 				CDF6BB8B1D4D841C003C1ED1 /* Budget.swift in Sources */,
+				3761A6201D62CD890070D457 /* CurrencyUtils.swift in Sources */,
+				3761A6191D62C5820070D457 /* Settings+CoreDataProperties.swift in Sources */,
 				37453E551D3318D600FD9D07 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

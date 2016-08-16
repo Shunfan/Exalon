@@ -99,7 +99,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         cell.textLabel?.text = self.itemList[indexPath.row].name
         
         let itemCategory = self.itemList[indexPath.row].category as! Category
-        cell.detailTextLabel?.text = itemCategory.isDeposit!.boolValue ? "+ $\(self.itemList[indexPath.row].amount!)" : "- $\(self.itemList[indexPath.row].amount!)"
+        cell.detailTextLabel?.text = itemCategory.isDeposit!.boolValue ? "+ \(CurrencyUtils.getCurrency())\(self.itemList[indexPath.row].amount!)" : "- \(CurrencyUtils.getCurrency())\(self.itemList[indexPath.row].amount!)"
         
         return cell
     }
