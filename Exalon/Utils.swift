@@ -7,11 +7,20 @@
 //
 
 import CoreData
+import UIKit
 
 class Utils: NSObject {
     var currency: String?
     var settings: Settings?
     var daysLeft: Int?
+    
+    static func getColor(color: String) -> UIColor {
+        let rgbaValues = color.characters.split{$0 == " "}.map(String.init)
+        return UIColor(red: CGFloat(Double(rgbaValues[0])!),
+                       green: CGFloat(Double(rgbaValues[1])!),
+                       blue: CGFloat(Double(rgbaValues[2])!),
+                       alpha: CGFloat(Double(rgbaValues[3])!))
+    }
     
     // Get the current currency string, for example, "$"
     static func getCurrency() -> String {

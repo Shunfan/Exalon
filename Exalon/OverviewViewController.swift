@@ -149,11 +149,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         var colors: [UIColor] = []
         
         colors = categories.map({ (category) -> UIColor in
-            let rgbaValues = category.color!.characters.split{$0 == " "}.map(String.init)
-            return UIColor(red: CGFloat(Double(rgbaValues[0])!),
-                           green: CGFloat(Double(rgbaValues[1])!),
-                           blue: CGFloat(Double(rgbaValues[2])!),
-                           alpha: CGFloat(Double(rgbaValues[3])!))
+            return Utils.getColor(category.color!)
         })
         
         let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "")
@@ -184,12 +180,17 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(overviewCellIdentifier, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(overviewCellIdentifier, forIndexPath: indexPath) as! TransactionTableViewCell
         
-        cell.textLabel?.text = self.itemList[indexPath.row].name
+        cell.itemNameLabel.text = self.itemList[indexPath.row].name
+//        cell.textLabel?.text = self.itemList[indexPath.row].name
         
         let itemCategory = self.itemList[indexPath.row].category as! Category
-        cell.detailTextLabel?.text = itemCategory.isDeposit!.boolValue ? "+ \(Utils.getCurrency())\(self.itemList[indexPath.row].amount!)" : "- \(Utils.getCurrency())\(self.itemList[indexPath.row].amount!)"
+        cell.itemCategoryNameLabel.text = itemCategory.name
+        cell.itemCategoryNameLabel.textColor = Utils.getColor(itemCategory.color!)
+
+        cell.itemAmountLabel.text = itemCategory.isDeposit!.boolValue ? "+ \(Utils.getCurrency())\(self.itemList[indexPath.row].amount!)" : "- \(Utils.getCurrency())\(self.itemList[indexPath.row].amount!)"
+//        cell.detailTextLabel?.text = itemCategory.isDeposit!.boolValue ? "+ \(Utils.getCurrency())\(self.itemList[indexPath.row].amount!)" : "- \(Utils.getCurrency())\(self.itemList[indexPath.row].amount!)"
         
         return cell
     }
