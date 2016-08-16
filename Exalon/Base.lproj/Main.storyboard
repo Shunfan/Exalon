@@ -18,8 +18,55 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="adx-Zq-opY">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Month Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfH-Lf-J7u">
+                                        <rect key="frame" x="256" y="12" width="87.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NPP-VS-fCv">
+                                        <rect key="frame" x="562" y="5.5" width="30" height="33"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="&gt;"/>
+                                        <connections>
+                                            <action selector="nextMonthPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="73U-dH-RfV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8t-Pb-P9o">
+                                        <rect key="frame" x="8" y="5.5" width="30" height="33"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="&lt;"/>
+                                        <connections>
+                                            <action selector="previousMonthPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i5E-GF-NHM"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="wfH-Lf-J7u" firstAttribute="centerY" secondItem="adx-Zq-opY" secondAttribute="centerY" id="HIx-9v-w5Y"/>
+                                    <constraint firstItem="E8t-Pb-P9o" firstAttribute="leading" secondItem="adx-Zq-opY" secondAttribute="leading" constant="8" id="JB1-0t-n2p"/>
+                                    <constraint firstAttribute="height" constant="44" id="Klk-3V-abv"/>
+                                    <constraint firstItem="E8t-Pb-P9o" firstAttribute="centerY" secondItem="adx-Zq-opY" secondAttribute="centerY" id="Oa7-kY-IgB"/>
+                                    <constraint firstItem="E8t-Pb-P9o" firstAttribute="centerY" secondItem="adx-Zq-opY" secondAttribute="centerY" id="OoR-6u-tKJ"/>
+                                    <constraint firstItem="NPP-VS-fCv" firstAttribute="centerY" secondItem="adx-Zq-opY" secondAttribute="centerY" id="R5E-5z-n3k"/>
+                                    <constraint firstItem="wfH-Lf-J7u" firstAttribute="centerX" secondItem="adx-Zq-opY" secondAttribute="centerX" id="f74-oQ-RQX"/>
+                                    <constraint firstItem="NPP-VS-fCv" firstAttribute="centerY" secondItem="adx-Zq-opY" secondAttribute="centerY" id="fGP-92-Q2w"/>
+                                    <constraint firstAttribute="trailing" secondItem="NPP-VS-fCv" secondAttribute="trailing" constant="8" id="kP3-05-tvt"/>
+                                    <constraint firstItem="E8t-Pb-P9o" firstAttribute="top" secondItem="adx-Zq-opY" secondAttribute="top" constant="7" id="tEv-9f-00k"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="OoR-6u-tKJ"/>
+                                        <exclude reference="tEv-9f-00k"/>
+                                        <exclude reference="R5E-5z-n3k"/>
+                                    </mask>
+                                </variation>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Lkz-EZ-pcg">
-                                <rect key="frame" x="0.0" y="258" width="600" height="229"/>
+                                <rect key="frame" x="0.0" y="308" width="600" height="179"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OverviewCell" textLabel="yes-a2-bap" detailTextLabel="lzf-bd-z9w" style="IBUITableViewCellStyleValue1" id="JLl-5i-NY7">
@@ -56,7 +103,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RH7-0A-WU3" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
+                                <rect key="frame" x="0.0" y="50" width="600" height="250"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="Rff-YH-EK5"/>
@@ -68,11 +115,22 @@
                             <constraint firstItem="Lkz-EZ-pcg" firstAttribute="top" secondItem="RH7-0A-WU3" secondAttribute="bottom" constant="8" id="0kX-fA-UeH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RH7-0A-WU3" secondAttribute="trailing" constant="-20" id="3jS-vh-Ijl"/>
                             <constraint firstItem="Lkz-EZ-pcg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="4hM-Sh-VL9"/>
+                            <constraint firstItem="adx-Zq-opY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Cp0-ki-q2i"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="adx-Zq-opY" secondAttribute="trailing" id="LWW-q7-GRY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="adx-Zq-opY" secondAttribute="trailing" constant="-20" id="bWn-dO-v4j"/>
                             <constraint firstItem="RH7-0A-WU3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="bsv-wc-8g5"/>
-                            <constraint firstItem="RH7-0A-WU3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="omr-vH-ys9"/>
+                            <constraint firstItem="adx-Zq-opY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="cuj-bN-iKc"/>
+                            <constraint firstItem="adx-Zq-opY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="lCZ-gs-6Kk"/>
+                            <constraint firstItem="RH7-0A-WU3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="omr-vH-ys9"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Lkz-EZ-pcg" secondAttribute="bottom" id="u8C-Gj-9rz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Lkz-EZ-pcg" secondAttribute="trailing" constant="-20" id="zwb-oL-FUp"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="LWW-q7-GRY"/>
+                                <exclude reference="cuj-bN-iKc"/>
+                            </mask>
+                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Exalon" id="pZo-w3-V5b">
@@ -83,6 +141,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="currentMonthYearLabel" destination="wfH-Lf-J7u" id="kju-AK-vja"/>
                         <outlet property="pieChartView" destination="RH7-0A-WU3" id="toi-SF-ziO"/>
                         <outlet property="transactionTableView" destination="Lkz-EZ-pcg" id="nn5-El-gJu"/>
                     </connections>

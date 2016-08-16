@@ -18,7 +18,7 @@
 		3761A6141D62B6320070D457 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3761A6131D62B6320070D457 /* AuthenticationViewController.swift */; };
 		3761A6191D62C5820070D457 /* Settings+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3761A6171D62C5820070D457 /* Settings+CoreDataProperties.swift */; };
 		3761A61A1D62C5820070D457 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3761A6181D62C5820070D457 /* Settings.swift */; };
-		3761A6201D62CD890070D457 /* CurrencyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3761A61F1D62CD890070D457 /* CurrencyUtils.swift */; };
+		3761A6201D62CD890070D457 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3761A61F1D62CD890070D457 /* Utils.swift */; };
 		37D10B121D498681004B15C2 /* BudgetPlanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D10B111D498681004B15C2 /* BudgetPlanTableViewController.swift */; };
 		37FE49B61D485AD300F86C0E /* ItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE49B51D485AD300F86C0E /* ItemTableViewController.swift */; };
 		37FE49D81D4864F000F86C0E /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE49D71D4864F000F86C0E /* CategoryTableViewController.swift */; };
@@ -48,7 +48,7 @@
 		3761A6131D62B6320070D457 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		3761A6171D62C5820070D457 /* Settings+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Settings+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3761A6181D62C5820070D457 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		3761A61F1D62CD890070D457 /* CurrencyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyUtils.swift; sourceTree = "<group>"; };
+		3761A61F1D62CD890070D457 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		37D10B111D498681004B15C2 /* BudgetPlanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetPlanTableViewController.swift; sourceTree = "<group>"; };
 		37FE49B51D485AD300F86C0E /* ItemTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewController.swift; sourceTree = "<group>"; };
 		37FE49D71D4864F000F86C0E /* CategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 				37453E561D3318D600FD9D07 /* OverviewViewController.swift */,
 				3761A60F1D62B39D0070D457 /* SettingsTableViewController.swift */,
 				3761A6131D62B6320070D457 /* AuthenticationViewController.swift */,
-				3761A61F1D62CD890070D457 /* CurrencyUtils.swift */,
+				3761A61F1D62CD890070D457 /* Utils.swift */,
 			);
 			path = Exalon;
 			sourceTree = "<group>";
@@ -289,7 +289,7 @@
 				3761A6141D62B6320070D457 /* AuthenticationViewController.swift in Sources */,
 				37453E571D3318D600FD9D07 /* OverviewViewController.swift in Sources */,
 				CDF6BB8B1D4D841C003C1ED1 /* Budget.swift in Sources */,
-				3761A6201D62CD890070D457 /* CurrencyUtils.swift in Sources */,
+				3761A6201D62CD890070D457 /* Utils.swift in Sources */,
 				3761A6191D62C5820070D457 /* Settings+CoreDataProperties.swift in Sources */,
 				37453E551D3318D600FD9D07 /* AppDelegate.swift in Sources */,
 			);

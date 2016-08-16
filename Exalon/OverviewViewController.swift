@@ -14,22 +14,77 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     let overviewCellIdentifier = "OverviewCell"
     let editItemSegueIdentifier = "EditItem"
     
+    var currentYear: Int!
+    var currentMonth: Int!
+    
     var categoryData = [Category: Double]()
-    
     var currentMonthTotal: Double = 0
-    
     var itemList: [Item]!
     var categoryList: [Category]!
     
+    @IBOutlet weak var currentMonthYearLabel: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var transactionTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.itemList = self.fetchedResultsController.fetchedObjects as! [Item]
+        // Set up currentMonthYearLabel
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([.Year, .Month], fromDate: NSDate())
+        self.currentYear = components.year
+        self.currentMonth = components.month
+        self.reloadCurrentMonthLabel()
+
+        
+        self.itemList = Utils.getItemsIn(self.currentYear, month: self.currentMonth)
+        print(Utils.getItemsIn(2016, month: 9))
         
         self.loadPieChart()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        
+        self.transactionTableView.reloadData()
+        self.loadPieChart()
+    }
+    
+    @IBAction func previousMonthPressed(sender: UIButton) {
+        if self.currentMonth == 1 {
+            self.currentMonth = 12
+            self.currentYear = self.currentYear - 1
+        } else {
+            self.currentMonth = self.currentMonth - 1
+        }
+        
+        self.reloadCurrentMonthLabel()
+        
+        self.itemList = Utils.getItemsIn(self.currentYear, month: self.currentMonth)
+        
+        self.loadPieChart()
+        self.transactionTableView.reloadData()
+    }
+    
+    @IBAction func nextMonthPressed(sender: UIButton) {
+        if self.currentMonth == 12 {
+            self.currentMonth = 1
+            self.currentYear = self.currentYear + 1
+        } else {
+            self.currentMonth = self.currentMonth + 1
+        }
+        
+        self.reloadCurrentMonthLabel()
+        
+        self.itemList = Utils.getItemsIn(self.currentYear, month: self.currentMonth)
+        
+        self.loadPieChart()
+        self.transactionTableView.reloadData()
+    }
+    
+    func reloadCurrentMonthLabel() {
+        let dateFormatter = NSDateFormatter()
+        self.currentMonthYearLabel.text = "\(dateFormatter.monthSymbols[self.currentMonth - 1]) \(self.currentYear)"
     }
     
     func loadPieChart() {
@@ -99,7 +154,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         cell.textLabel?.text = self.itemList[indexPath.row].name
         
         let itemCategory = self.itemList[indexPath.row].category as! Category
-        cell.detailTextLabel?.text = itemCategory.isDeposit!.boolValue ? "+ \(CurrencyUtils.getCurrency())\(self.itemList[indexPath.row].amount!)" : "- \(CurrencyUtils.getCurrency())\(self.itemList[indexPath.row].amount!)"
+        cell.detailTextLabel?.text = itemCategory.isDeposit!.boolValue ? "+ \(Utils.getCurrency())\(self.itemList[indexPath.row].amount!)" : "- \(Utils.getCurrency())\(self.itemList[indexPath.row].amount!)"
         
         return cell
     }
@@ -148,8 +203,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch type {
         case .Insert:
-            self.itemList.insert(anObject as! Item, atIndex: newIndexPath!.row)
-            self.transactionTableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+            self.transactionTableView.reloadData()
             self.loadPieChart()
         default:
             self.transactionTableView.reloadData()
