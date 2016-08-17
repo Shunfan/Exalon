@@ -48,8 +48,10 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     @IBAction func touchIDSwitched(sender: UISwitch) {
         if sender.on {
             self.settings!.touchID = true
+            CoreDataUtils.saveContext()
         } else {
             self.settings!.touchID = false
+            CoreDataUtils.saveContext()
         }
 
     }
@@ -90,6 +92,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
 
         
     }
+    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(true)
         CoreDataUtils.saveContext()
