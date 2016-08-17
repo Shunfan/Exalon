@@ -12,6 +12,7 @@ class TransactionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var itemNameLabel: UILabel!
     @IBOutlet weak var itemAmountLabel: UILabel!
+    @IBOutlet weak var itemDateLabel: UILabel!
     @IBOutlet weak var itemCategoryNameLabel: UILabel!
     
     override func awakeFromNib() {

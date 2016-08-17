@@ -38,10 +38,10 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         self.currentMonth = components.month
         self.currentDay = components.day
         self.calculateDaysRemaining()
-//        Utils.setDaysLeft(self.daysLeft)
+        // Utils.setDaysLeft(self.daysLeft)
         self.appDelegate.setDaysLeft(self.daysLeft)
         self.reloadCurrentMonthLabel()
-
+        
         self.itemList = Utils.getItemsIn(self.currentYear, month: self.currentMonth)
     }
     
@@ -113,7 +113,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         for item in self.itemList {
             let itemCategory = item.category as! Category
             let itemAmount = item.amount as! Double
-
+            
             self.currentMonthTotal = self.currentMonthTotal + itemAmount
             if !itemCategory.isDeposit!.boolValue {
                 if self.categoryData[itemCategory] != nil {
@@ -125,7 +125,7 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             
             self.appDelegate.setCurrentTotal(self.currentMonthTotal)
         }
-
+        
         self.setPieChart(Array(self.categoryData.keys), values: Array(self.categoryData.values))
     }
     
@@ -159,14 +159,6 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
         pieChartDataSet.colors = colors
         self.pieChartView.data = pieChartData
         
-        print("\n")
-        print("\(dataEntries)")
-        print("\(pieChartDataSet)")
-        print("\(pieChartData)")
-        print("\(colors)")
-        
-        // Sets the center of the pieChart Text
-        //        pieChartView.centerText = "Test"
         // Removes discriptive text from individual slices
         self.pieChartView.drawSliceTextEnabled = false
         // Removes the center cut out of the graph
@@ -182,15 +174,19 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(overviewCellIdentifier, forIndexPath: indexPath) as! TransactionTableViewCell
         
+        self.itemList = self.itemList.sort({ $0.date > $1.date })
+        
         cell.itemNameLabel.text = self.itemList[indexPath.row].name
-//        cell.textLabel?.text = self.itemList[indexPath.row].name
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMM d"
+        cell.itemDateLabel.text = dateFormatter.stringFromDate(self.itemList[indexPath.row].date!)
         
         let itemCategory = self.itemList[indexPath.row].category as! Category
+        
         cell.itemCategoryNameLabel.text = itemCategory.name
         cell.itemCategoryNameLabel.textColor = Utils.getColor(itemCategory.color!)
-
         cell.itemAmountLabel.text = itemCategory.isDeposit!.boolValue ? "+ \(Utils.getCurrency())\(self.itemList[indexPath.row].amount!)" : "- \(Utils.getCurrency())\(self.itemList[indexPath.row].amount!)"
-//        cell.detailTextLabel?.text = itemCategory.isDeposit!.boolValue ? "+ \(Utils.getCurrency())\(self.itemList[indexPath.row].amount!)" : "- \(Utils.getCurrency())\(self.itemList[indexPath.row].amount!)"
         
         return cell
     }
@@ -205,3 +201,13 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
 }
+
+public func <(a: NSDate, b: NSDate) -> Bool {
+    return a.compare(b) == NSComparisonResult.OrderedAscending
+}
+
+public func ==(a: NSDate, b: NSDate) -> Bool {
+    return a.compare(b) == NSComparisonResult.OrderedSame
+}
+
+extension NSDate: Comparable { }

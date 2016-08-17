@@ -18,8 +18,6 @@ class BudgetPlanTableViewController: UITableViewController {
     @IBOutlet weak var daysLeftLabel: UILabel!
     @IBOutlet weak var dailyBudgetLabel: UILabel!
     
-    
-    
     let categories = ["Spent", "Left"]
     
     var budgetPlan: Budget?
@@ -30,8 +28,6 @@ class BudgetPlanTableViewController: UITableViewController {
     var amountOver: Double?
     var daysLeft: Int?
     var dailyBudget: Double?
-
-    
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -107,15 +103,9 @@ class BudgetPlanTableViewController: UITableViewController {
             return CGFloat(44)
         }
     }
-
-//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("", forIndexPath: indexPath)
-//
-//
-//        return cell
-//    }
     
     func setPieChart(dataPoints: [String], values: [Double]) {
+        self.budgetPieChartView.descriptionText = ""
         
         var dataEntries: [ChartDataEntry] = []
         
@@ -128,7 +118,7 @@ class BudgetPlanTableViewController: UITableViewController {
         let remaining = UIColor(red: CGFloat(0/255), green: CGFloat(255/255), blue: CGFloat(0/255), alpha: 1)
         let colors: [UIColor] = [spent,remaining]
         
-        let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "Budget")
+        let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "")
         let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
         pieChartDataSet.colors = colors
         budgetPieChartView.data = pieChartData
