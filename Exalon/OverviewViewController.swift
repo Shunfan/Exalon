@@ -114,8 +114,8 @@ class OverviewViewController: UIViewController, UITableViewDelegate, UITableView
             let itemCategory = item.category as! Category
             let itemAmount = item.amount as! Double
             
-            self.currentMonthTotal = self.currentMonthTotal + itemAmount
             if !itemCategory.isDeposit!.boolValue {
+                self.currentMonthTotal = self.currentMonthTotal + itemAmount
                 if self.categoryData[itemCategory] != nil {
                     self.categoryData[itemCategory] = self.categoryData[itemCategory]! + itemAmount
                 } else {
