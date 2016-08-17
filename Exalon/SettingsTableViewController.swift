@@ -19,7 +19,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     
     let currencyList = ["$", "¥", "€", "£"]
     
-    var isPassword: Bool?
+    var passwordEnabled: Bool?
     
     var settings: Settings?
 
@@ -40,8 +40,9 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         
         self.currencyLabel.text = self.settings!.currency
         self.touchIDSwitch.setOn(self.settings!.touchID!.boolValue, animated: true)
+        
+        self.passwordEnabled = self.settings!.passwordEnabled!.boolValue
         self.enablePasscodeSwitch.setOn(self.settings!.passwordEnabled!.boolValue, animated: true)
-        self.isPassword = self.settings!.passwordEnabled!.boolValue
     }
 
     @IBAction func touchIDSwitched(sender: UISwitch) {
@@ -55,32 +56,36 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     
     @IBAction func enablePasscodeSwitched(sender: UISwitch) {
         if sender.on {
-            
-            if !(self.isPassword!.boolValue) {
-                let ac = UIAlertController(title: "Password", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            if self.settings!.password == nil {
+                let ac = UIAlertController(title: "Set Password", message: "Input the password", preferredStyle: UIAlertControllerStyle.Alert)
                 
                 ac.addTextFieldWithConfigurationHandler { (textField) in
-                    textField.text = self.settings?.password == "" ? self.settings?.password : self.settings?.password
+                    textField.text = ""
+                    textField.secureTextEntry = true
                 }
                 
                 let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil)
                 
                 let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) in
                     let textField = ac.textFields!.first!
-                    self.settings?.password = textField.text
-                    self.isPassword = true
+                    self.settings!.password = textField.text
+                    self.settings!.passwordEnabled = true
+                    
+                    CoreDataUtils.saveContext()
                 }
                 
                 ac.addAction(cancelAction)
                 ac.addAction(okAction)
                 self.presentViewController(ac, animated: true, completion: nil)
+            } else {
+                self.settings!.passwordEnabled = true
+                
+                CoreDataUtils.saveContext()
             }
-            self.settings!.passwordEnabled = true
-            //Tell AppDelegate
-            self.appDelegate.setPassword((self.settings!.password)!)
         } else {
             self.settings!.passwordEnabled = false
-            //Tell AppDelegate?
+            
+            CoreDataUtils.saveContext()
         }
 
         
@@ -131,18 +136,35 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         case 1:
             switch indexPath.row {
             case 2:
-                let ac = UIAlertController(title: "Password", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+                let ac = UIAlertController(title: "Change Password", message: "Input the new password", preferredStyle: UIAlertControllerStyle.Alert)
                 
                 ac.addTextFieldWithConfigurationHandler { (textField) in
-                    textField.text = self.settings?.password == "" ? self.settings?.password : self.settings?.password
+                    textField.placeholder = "Current password"
+                    textField.secureTextEntry = true
+                }
+                
+                ac.addTextFieldWithConfigurationHandler { (textField) in
+                    textField.placeholder = "New password"
+                    textField.secureTextEntry = true
                 }
                 
                 let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil)
                 
                 let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) in
-                    let textField = ac.textFields!.first!
-                    self.settings?.password = textField.text
-                    self.isPassword = true
+                    let currentPassowrdTextField = ac.textFields![0]
+                    let newPasswordTextField = ac.textFields![1]
+                    
+                    if currentPassowrdTextField.text == self.settings!.password {
+                        self.settings!.password = newPasswordTextField.text
+                        
+                        CoreDataUtils.saveContext()
+                    } else {
+                        let ac = UIAlertController(title: "Current password is wrong", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+                        
+                        ac.addAction(okAction)
+                        self.presentViewController(ac, animated: true, completion: nil)
+                    }
                 }
                 
                 ac.addAction(cancelAction)

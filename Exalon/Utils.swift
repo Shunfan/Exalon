@@ -78,6 +78,23 @@ class Utils: NSObject {
         return endDate
     }
     
+    static func getPassword() -> String {
+        let fetchRequest = NSFetchRequest(entityName: "Settings")
+        
+        do {
+            let settingsList = try CoreDataUtils.managedObjectContext().executeFetchRequest(fetchRequest)
+            
+            if settingsList.count > 0 {
+                let settings = (settingsList[0] as! Settings)
+                return settings.password!
+            }
+        } catch {
+            // To be implemented
+        }
+        
+        return ""
+    }
+    
 //    static func setDaysLeft(days: Int) {
 //        self.daysLeft = days
 //    }

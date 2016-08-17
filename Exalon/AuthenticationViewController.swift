@@ -9,15 +9,15 @@
 import LocalAuthentication
 import UIKit
 
-class AuthenticationViewController: UIViewController {
+class AuthenticationViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var passwordTextField: UITextField!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        self.passwordTextField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,7 +41,7 @@ class AuthenticationViewController: UIViewController {
         // Check the fingerprint
         authenticationContext.evaluatePolicy(
             .DeviceOwnerAuthenticationWithBiometrics,
-            localizedReason: "Only awesome people are allowed",
+            localizedReason: "Put your finger on me!",
             reply: { [unowned self] (success, error) -> Void in
                 
                 if success {
@@ -51,21 +51,15 @@ class AuthenticationViewController: UIViewController {
                 } else {
                     // Check if there is an error
                     if let error = error {
-                        let message = self.errorMessageForLAErrorCode(error.code)
-                        self.showAlertWithTitle("Error", message: message)
-                        
+                        if error.code == LAError.UserFallback.rawValue {
+                            return
+                        } else {
+                            let message = self.errorMessageForLAErrorCode(error.code)
+                            self.showAlertWithTitle("Error", message: message)
+                        }
                     }
-                    
                 }
-                
             })
-        
-        //Check the Password
-        if self.passwordTextField.text == appDelegate.getPassword() {
-            self.navigateToAuthenticatedViewController()
-        }
-
-        
     }
     
     func showAlertWithTitle(title: String, message: String) {
@@ -111,13 +105,23 @@ class AuthenticationViewController: UIViewController {
             message = "TouchID is not available on the device"
         case LAError.UserCancel.rawValue:
             message = "The user did cancel"
-        case LAError.UserFallback.rawValue:
-            message = "The user chose to use the fallback"
         default:
             message = "Did not find error code on LAError object"
         }
         
         return message
+    }
+    
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if self.passwordTextField.text == Utils.getPassword() {
+            self.navigateToAuthenticatedViewController()
+        } else {
+            showAlertWithTitle("Authentication Failed", message: "Password is wrong")
+        }
+        
+        return true
     }
 
     /*

@@ -36,14 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return self.daysLeft!
     }
     
-    func setPassword(pw: String) {
-        self.settings?.password = pw
-    }
-    
-    func getPassword() -> String {
-        return self.settings!.password!
-    }
-    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         let fetchRequest = NSFetchRequest(entityName: "Settings")
         
