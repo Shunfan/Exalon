@@ -15,6 +15,8 @@ import CoreData
 extension Settings {
 
     @NSManaged var currency: String?
+    @NSManaged var password: String?
     @NSManaged var touchID: NSNumber?
+    @NSManaged var passwordEnabled: NSNumber?
 
 }

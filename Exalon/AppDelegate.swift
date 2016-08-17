@@ -36,6 +36,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return self.daysLeft!
     }
     
+    func setPassword(pw: String) {
+        self.settings?.password = pw
+    }
+    
+    func getPassword() -> String {
+        return self.settings!.password!
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         let fetchRequest = NSFetchRequest(entityName: "Settings")
         
@@ -54,11 +62,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             self.settings!.currency = "$"
             self.settings!.touchID = false
+            self.settings!.passwordEnabled = false
             
             CoreDataUtils.saveContext()
         }
         
-        if self.settings!.touchID!.boolValue {
+        if self.settings!.touchID!.boolValue || self.settings!.passwordEnabled!.boolValue {
             self.showAuthenticationViewController()
         } else {
             self.showLoggedInViewController()

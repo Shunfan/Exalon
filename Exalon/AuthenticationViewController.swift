@@ -11,6 +11,9 @@ import UIKit
 
 class AuthenticationViewController: UIViewController {
     
+    @IBOutlet weak var passwordTextField: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -56,6 +59,13 @@ class AuthenticationViewController: UIViewController {
                 }
                 
             })
+        
+        //Check the Password
+        if self.passwordTextField.text == appDelegate.getPassword() {
+            self.navigateToAuthenticatedViewController()
+        }
+
+        
     }
     
     func showAlertWithTitle(title: String, message: String) {

@@ -15,8 +15,11 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var touchIDSwitch: UISwitch!
+    @IBOutlet weak var enablePasscodeSwitch: UISwitch!
     
     let currencyList = ["$", "¥", "€", "£"]
+    
+    var isPassword: Bool?
     
     var settings: Settings?
 
@@ -37,6 +40,8 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         
         self.currencyLabel.text = self.settings!.currency
         self.touchIDSwitch.setOn(self.settings!.touchID!.boolValue, animated: true)
+        self.enablePasscodeSwitch.setOn(self.settings!.passwordEnabled!.boolValue, animated: true)
+        self.isPassword = self.settings!.passwordEnabled!.boolValue
     }
 
     @IBAction func touchIDSwitched(sender: UISwitch) {
@@ -45,8 +50,41 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         } else {
             self.settings!.touchID = false
         }
+
     }
     
+    @IBAction func enablePasscodeSwitched(sender: UISwitch) {
+        if sender.on {
+            
+            if !(self.isPassword!.boolValue) {
+                let ac = UIAlertController(title: "Password", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                ac.addTextFieldWithConfigurationHandler { (textField) in
+                    textField.text = self.settings?.password == "" ? self.settings?.password : self.settings?.password
+                }
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil)
+                
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) in
+                    let textField = ac.textFields!.first!
+                    self.settings?.password = textField.text
+                    self.isPassword = true
+                }
+                
+                ac.addAction(cancelAction)
+                ac.addAction(okAction)
+                self.presentViewController(ac, animated: true, completion: nil)
+            }
+            self.settings!.passwordEnabled = true
+            //Tell AppDelegate
+            self.appDelegate.setPassword((self.settings!.password)!)
+        } else {
+            self.settings!.passwordEnabled = false
+            //Tell AppDelegate?
+        }
+
+        
+    }
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(true)
         CoreDataUtils.saveContext()
@@ -87,6 +125,29 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
                     },
                     cancelBlock: { ActionMultipleStringCancelBlock in return },
                     origin: tableView)
+            default:
+                print("NA")
+            }
+        case 1:
+            switch indexPath.row {
+            case 2:
+                let ac = UIAlertController(title: "Password", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                ac.addTextFieldWithConfigurationHandler { (textField) in
+                    textField.text = self.settings?.password == "" ? self.settings?.password : self.settings?.password
+                }
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil)
+                
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) in
+                    let textField = ac.textFields!.first!
+                    self.settings?.password = textField.text
+                    self.isPassword = true
+                }
+                
+                ac.addAction(cancelAction)
+                ac.addAction(okAction)
+                self.presentViewController(ac, animated: true, completion: nil)
             default:
                 print("NA")
             }
