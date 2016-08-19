@@ -199,7 +199,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         
         mailComposerVC.setToRecipients(["feedback@exalonapp.com"])
         mailComposerVC.setSubject("Feedback from an Exalon user")
-        mailComposerVC.setMessageBody("My modal name: \(UIDevice.currentDevice().modelName)", isHTML: false)
+        mailComposerVC.setMessageBody("My modal name: \(UIDevice.currentDevice().modelName)\niOS version: \(UIDevice.currentDevice().systemVersion)", isHTML: false)
         
         return mailComposerVC
     }
